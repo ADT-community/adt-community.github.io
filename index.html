@@ -5,107 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ADT Forum — Build for Africa. Get paid.</title>
 <meta name="description" content="Open source projects solving African problems. Developers across the continent build them together and get paid through bounties and goals.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --bg:#14110f; --panel:#1d1916; --line:#332c26;
-    --text:#f3ece4; --muted:#b3a89c;
-    --ochre:#e8a33d; --clay:#d4603a; --green:#5fae7a;
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth}
-  body{background:var(--bg);color:var(--text);font:16px/1.6 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
-  a{color:var(--ochre)}
-  .wrap{max-width:1040px;margin:0 auto;padding:0 22px}
-  h1,h2,h3{font-family:"Bricolage Grotesque",Inter,sans-serif;line-height:1.1}
-  h2{font-size:clamp(28px,4.5vw,42px);font-weight:800;margin-bottom:14px}
-  h3{font-size:20px;font-weight:500;margin-bottom:6px}
-  .kicker{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--ochre);font-weight:600;margin-bottom:10px}
-  .lead{color:var(--muted);font-size:18px;max-width:640px}
-  section{padding:80px 0;border-top:1px solid var(--line)}
-
-  nav{position:sticky;top:0;z-index:5;background:rgba(20,17,15,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
-  .logo{font-family:"Bricolage Grotesque";font-weight:800;font-size:20px;color:var(--text);text-decoration:none}
-  .logo span{color:var(--ochre)}
-  nav ul{display:flex;gap:22px;list-style:none}
-  nav ul a{color:var(--muted);text-decoration:none;font-size:14px}
-  nav ul a:hover{color:var(--text)}
-  @media(max-width:720px){nav ul{display:none}}
-
-  .hero{padding:96px 0 88px;position:relative;overflow:hidden;border-top:0}
-  .hero::before{content:"";position:absolute;inset:-40% -20% auto auto;width:720px;height:720px;
-    background:radial-gradient(circle,rgba(232,163,61,.22),transparent 62%);pointer-events:none}
-  .hero h1{font-size:clamp(44px,8.5vw,92px);font-weight:800;letter-spacing:-.02em;max-width:880px}
-  .hero h1 em{font-style:normal;color:var(--ochre)}
-  .hero .lead{margin:24px 0 34px}
-  .btns{display:flex;gap:12px;flex-wrap:wrap}
-  .btn{display:inline-block;padding:13px 22px;border-radius:999px;font-weight:600;text-decoration:none;font-size:15px}
-  .btn.primary{background:var(--ochre);color:#1a1208}
-  .btn.ghost{border:1px solid var(--line);color:var(--text)}
-  .btn:hover{filter:brightness(1.08)}
-
-  .grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));margin-top:36px}
-  .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:24px}
-  .card p{color:var(--muted);font-size:15px}
-  .num{font-family:"Bricolage Grotesque";font-weight:800;font-size:15px;color:var(--bg);background:var(--ochre);
-    width:30px;height:30px;border-radius:50%;display:grid;place-items:center;margin-bottom:14px}
-
-  .pay{display:grid;gap:16px;grid-template-columns:1fr 1fr;margin-top:36px}
-  @media(max-width:720px){.pay{grid-template-columns:1fr}}
-  .pay .card{padding:30px}
-  .tag{display:inline-block;font-size:12px;font-weight:600;padding:4px 10px;border-radius:999px;margin-bottom:14px}
-  .tag.b{background:rgba(232,163,61,.15);color:var(--ochre)}
-  .tag.g{background:rgba(95,174,122,.15);color:var(--green)}
-  .pay ul{margin:14px 0 0 18px;color:var(--muted);font-size:15px}
-  .pay li{margin:4px 0}
-  code{font-family:ui-monospace,Menlo,monospace;font-size:13px;background:#2a241f;padding:2px 7px;border-radius:6px;color:var(--text)}
-  .note{margin-top:20px;color:var(--muted);font-size:14px}
-
-  .stages{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:36px;border:1px solid var(--line);border-radius:16px;overflow:hidden}
-  .stage{padding:24px;border-right:1px solid var(--line);background:var(--panel)}
-  .stage:last-child{border-right:0}
-  .stage small{color:var(--ochre);font-weight:600;font-size:12px;letter-spacing:.1em;text-transform:uppercase}
-  .stage p{color:var(--muted);font-size:14px}
-  @media(max-width:720px){.stages{grid-template-columns:1fr 1fr}.stage:nth-child(2){border-right:0}.stage:nth-child(-n+2){border-bottom:1px solid var(--line)}}
-
-  .projects{margin-top:36px;display:grid;gap:12px}
-  .proj{display:grid;grid-template-columns:1fr auto;gap:6px 20px;align-items:start;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px 22px}
-  .proj p{color:var(--muted);font-size:14px;grid-column:1}
-  .diff{font-size:12px;font-weight:600;padding:4px 10px;border-radius:999px;white-space:nowrap;grid-row:1/3;grid-column:2;align-self:center}
-  .d1{background:rgba(95,174,122,.15);color:var(--green)}
-  .d2{background:rgba(232,163,61,.15);color:var(--ochre)}
-  .d3{background:rgba(212,96,58,.16);color:var(--clay)}
-  .hw{font-size:11px;color:var(--clay);font-weight:600;margin-left:8px;letter-spacing:.06em}
-
-  .flag{display:grid;gap:16px;grid-template-columns:1fr 1fr;margin-top:36px}
-  @media(max-width:760px){.flag{grid-template-columns:1fr}}
-  .fp{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:28px;position:relative}
-  .fp .no{font-family:"Bricolage Grotesque";font-weight:800;font-size:40px;color:var(--ochre);opacity:.9;line-height:1;display:block;margin-bottom:12px}
-  .fp h3{font-size:24px;font-weight:800}
-  .fp .sum{color:var(--text);margin:6px 0 12px}
-  .fp ul{margin-left:18px;color:var(--muted);font-size:15px}
-  .fp li{margin:5px 0}
-  .fp li b{color:var(--text);font-weight:600}
-  .fp .earn{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);color:var(--muted);font-size:14px}
-  .fp .earn b{color:var(--green)}
-  .cta{text-align:center}
-  .cta .lead{margin:0 auto 30px}
-  .cta .btns{justify-content:center}
-  .rules{margin-top:36px;display:grid;gap:16px;grid-template-columns:1fr 1fr}
-  @media(max-width:720px){.rules{grid-template-columns:1fr}}
-  .rules ul{margin-left:18px;color:var(--muted);font-size:15px}
-  .rules li{margin:5px 0}
-  footer{border-top:1px solid var(--line);padding:30px 0;color:var(--muted);font-size:14px}
-  footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <nav><div class="wrap">
-  <a class="logo" href="#">ADT<span>.</span>forum</a>
+  <a class="logo" href="#">ADT Community</a>
   <ul>
     <li><a href="#how">How it works</a></li>
     <li><a href="#paid">Getting paid</a></li>
@@ -186,7 +91,7 @@
   <div class="flag">
     <article class="fp">
       <span class="no">01</span>
-      <h3><a href="https://github.com/ADT-community/trans_sport" style="color:inherit;text-decoration:none">Minibus app <span style="color:var(--ochre);font-size:18px">↗</span></a></h3>
+      <h3><a href="https://github.com/ADT-community/trans_sport">Minibus app <span>↗</span></a></h3>
       <p class="sum">Uber-style convenience for the minibuses Africa already rides, without owning a single bus.</p>
       <ul>
         <li><b>Passengers</b> see minibuses near them on a map with route, fare and arrival time, pay by mobile money and share trips for safety. No booking, just get on.</li>
@@ -197,7 +102,7 @@
     </article>
     <article class="fp">
       <span class="no">02</span>
-      <h3><a href="https://github.com/ADT-community/locallity_ai" style="color:inherit;text-decoration:none">Local-language AI <span style="color:var(--ochre);font-size:18px">↗</span></a></h3>
+      <h3><a href="https://github.com/ADT-community/locallity_ai">Local-language AI <span>↗</span></a></h3>
       <p class="sum">An AI platform that speaks African languages, by voice and text, for farmers and everyone else.</p>
       <ul>
         <li>Farming, health, forms, translation, learning and everyday questions</li>
@@ -208,7 +113,7 @@
     </article>
     <article class="fp">
       <span class="no">03</span>
-      <h3><a href="https://github.com/ADT-community/content_feed" style="color:inherit;text-decoration:none">Creator social app <span style="color:var(--ochre);font-size:18px">↗</span></a></h3>
+      <h3><a href="https://github.com/ADT-community/content_feed">Creator social app <span>↗</span></a></h3>
       <p class="sum">Social media that actually pays African creators.</p>
       <ul>
         <li>Short video and posts built for African audiences</li>
@@ -219,7 +124,7 @@
     </article>
     <article class="fp">
       <span class="no">04</span>
-      <h3><a href="https://github.com/ADT-community/ADT_agent" style="color:inherit;text-decoration:none">ADT agent <span style="color:var(--ochre);font-size:18px">↗</span></a></h3>
+      <h3><a href="https://github.com/ADT-community/ADT_agent">ADT agent <span>↗</span></a></h3>
       <p class="sum">An AI agent that helps run the whole network of projects.</p>
       <ul>
         <li>Turns plans into tasks and bounties</li>

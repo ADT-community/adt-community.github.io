@@ -5,60 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Propose a project — ADT Forum</title>
 <meta name="description" content="Propose an open source project that solves an African problem, and vote on proposals from the community.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-  :root{--bg:#14110f;--panel:#1d1916;--line:#332c26;--text:#f3ece4;--muted:#b3a89c;--ochre:#e8a33d;--clay:#d4603a;--green:#5fae7a}
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{background:var(--bg);color:var(--text);font:16px/1.6 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
-  a{color:var(--ochre)}
-  .wrap{max-width:1040px;margin:0 auto;padding:0 22px}
-  h1,h2,h3{font-family:"Bricolage Grotesque",Inter,sans-serif;line-height:1.1}
-  h1{font-size:clamp(38px,7vw,68px);font-weight:800;letter-spacing:-.02em}
-  h2{font-size:clamp(24px,4vw,34px);font-weight:800;margin-bottom:8px}
-  .kicker{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--ochre);font-weight:600;margin-bottom:10px}
-  .lead{color:var(--muted);font-size:18px;max-width:640px;margin-top:16px}
-  nav{position:sticky;top:0;z-index:5;background:rgba(20,17,15,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
-  .logo{font-family:"Bricolage Grotesque";font-weight:800;font-size:20px;color:var(--text);text-decoration:none}
-  .logo span{color:var(--ochre)}
-  nav a.back{color:var(--muted);text-decoration:none;font-size:14px}
-  header{padding:72px 0 40px}
-  .layout{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;padding-bottom:80px;align-items:start}
-  @media(max-width:860px){.layout{grid-template-columns:1fr}}
-  .panel{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:28px}
-  label{display:block;font-weight:600;font-size:15px;margin:18px 0 4px}
-  label:first-of-type{margin-top:6px}
-  .hint{color:var(--muted);font-size:13px;margin-bottom:8px}
-  input,textarea{width:100%;background:#15120f;border:1px solid var(--line);border-radius:10px;color:var(--text);
-    font:15px/1.5 Inter,system-ui,sans-serif;padding:11px 13px}
-  textarea{min-height:92px;resize:vertical}
-  input:focus,textarea:focus{outline:none;border-color:var(--ochre)}
-  .req{color:var(--clay)}
-  .row{display:grid;grid-template-columns:1fr 1fr;gap:0 14px}
-  @media(max-width:560px){.row{grid-template-columns:1fr}}
-  button{margin-top:24px;width:100%;padding:14px;border:0;border-radius:999px;background:var(--ochre);color:#1a1208;
-    font:600 16px Inter,system-ui,sans-serif;cursor:pointer}
-  button:hover{filter:brightness(1.08)}
-  .small{color:var(--muted);font-size:13px;margin-top:12px;text-align:center}
-  .err{color:var(--clay);font-size:14px;margin-top:12px;display:none}
-  .list{display:grid;gap:10px;margin-top:18px}
-  .prop{display:flex;gap:14px;align-items:center;background:#15120f;border:1px solid var(--line);border-radius:12px;padding:14px 16px;text-decoration:none;color:var(--text)}
-  .prop:hover{border-color:var(--ochre)}
-  .votes{min-width:48px;text-align:center;font-family:"Bricolage Grotesque";font-weight:800;font-size:20px;color:var(--ochre);line-height:1}
-  .votes small{display:block;font:500 11px Inter;color:var(--muted);margin-top:4px}
-  .prop h3{font-size:16px;font-weight:500}
-  .meta{color:var(--muted);font-size:13px}
-  .empty{color:var(--muted);font-size:15px;padding:18px 0}
-  .steps{margin:18px 0 0 18px;color:var(--muted);font-size:15px}
-  .steps li{margin:6px 0}
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <nav><div class="wrap">
-  <a class="logo" href="./">ADT<span>.</span>forum</a>
+  <a class="logo" href="./">ADT Community</a>
   <a class="back" href="./">← Back to home</a>
 </div></nav>
 
@@ -107,7 +59,7 @@
       <p class="meta">Ranked by 👍 votes. Tap one to vote or join.</p>
       <div class="list" id="list"><p class="empty">Loading…</p></div>
     </div>
-    <div class="panel" style="margin-top:20px">
+    <div class="panel">
       <h2>What happens next</h2>
       <ol class="steps">
         <li>The community votes 👍 and comments to join.</li>
@@ -128,7 +80,7 @@
     const required = ["name","problem","solution","profit","mvp"];
     const missing = required.filter(id => !v(id));
     document.getElementById("err").style.display = missing.length ? "block" : "none";
-    required.forEach(id => document.getElementById(id).style.borderColor = v(id) ? "" : "var(--clay)");
+    required.forEach(id => document.getElementById(id).style.borderColor = v(id) ? "" : "#c0392b");
     if (missing.length) return;
 
     const p = new URLSearchParams({
