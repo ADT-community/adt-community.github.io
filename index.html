@@ -80,6 +80,17 @@
   .d3{background:rgba(212,96,58,.16);color:var(--clay)}
   .hw{font-size:11px;color:var(--clay);font-weight:600;margin-left:8px;letter-spacing:.06em}
 
+  .flag{display:grid;gap:16px;grid-template-columns:1fr 1fr;margin-top:36px}
+  @media(max-width:760px){.flag{grid-template-columns:1fr}}
+  .fp{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:28px;position:relative}
+  .fp .no{font-family:"Bricolage Grotesque";font-weight:800;font-size:40px;color:var(--ochre);opacity:.9;line-height:1;display:block;margin-bottom:12px}
+  .fp h3{font-size:24px;font-weight:800}
+  .fp .sum{color:var(--text);margin:6px 0 12px}
+  .fp ul{margin-left:18px;color:var(--muted);font-size:15px}
+  .fp li{margin:5px 0}
+  .fp li b{color:var(--text);font-weight:600}
+  .fp .earn{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);color:var(--muted);font-size:14px}
+  .fp .earn b{color:var(--green)}
   .cta{text-align:center}
   .cta .lead{margin:0 auto 30px}
   .cta .btns{justify-content:center}
@@ -169,17 +180,54 @@
 </div></section>
 
 <section id="projects"><div class="wrap">
-  <p class="kicker">Project ideas</p>
-  <h2>What we could build.</h2>
-  <p class="lead">A starting list. Easier projects that can earn quickly go first to prove the model.</p>
-  <div class="projects">
-    <div class="proj"><h3>Mobile money toolkit</h3><p>One API for payments across many African countries. Earns from a hosted API and support.</p><span class="diff d2">Medium</span></div>
-    <div class="proj"><h3>Farm advisory bot</h3><p>Weather, prices and pest advice for smallholder farmers over SMS and WhatsApp. Earns from subscriptions and agri-business partners.</p><span class="diff d2">Medium</span></div>
-    <div class="proj"><h3>Offline-first learning app</h3><p>Learning that works on low data and poor connections. Earns from school and NGO contracts.</p><span class="diff d2">Medium</span></div>
-    <div class="proj"><h3>African language AI</h3><p>AI tools that work in African languages. Earns from API access and licensing.</p><span class="diff d3">Hard</span></div>
-    <div class="proj"><h3>Creator platform</h3><p>Short video that actually pays African creators, through tips, commerce and brand deals paid out by mobile money.</p><span class="diff d3">Hard</span></div>
-    <div class="proj"><h3>Solar mini-grid monitor<span class="hw">HARDWARE</span></h3><p>Catches off-grid solar failures before they happen. Earns from devices and monitoring subscriptions.</p><span class="diff d3">Hard</span></div>
-    <div class="proj"><h3>Low-cost health devices<span class="hw">HARDWARE</span></h3><p>Affordable diagnostic tools for clinics. Earns from device sales.</p><span class="diff d3">Hard</span></div>
+  <p class="kicker">Flagship projects</p>
+  <h2>What we're building.</h2>
+  <p class="lead">Four projects to start. Each one solves a daily problem and has a clear way to make money.</p>
+  <div class="flag">
+    <article class="fp">
+      <span class="no">01</span>
+      <h3>Minibus app</h3>
+      <p class="sum">Uber-style convenience for the minibuses Africa already rides, without owning a single bus.</p>
+      <ul>
+        <li><b>Passengers</b> see minibuses near them on a map with route, fare and arrival time, pay by mobile money and share trips for safety. No booking, just get on.</li>
+        <li><b>Drivers</b> share GPS and accept fares from their phone.</li>
+        <li><b>Owners</b> see where each vehicle is, what it earned today and how each driver is doing.</li>
+      </ul>
+      <p class="earn"><b>Earns:</b> monthly fee per vehicle, small cut of digital fares, route data for cities.</p>
+    </article>
+    <article class="fp">
+      <span class="no">02</span>
+      <h3>Local-language AI</h3>
+      <p class="sum">An assistant that speaks African languages, by voice and text, for farmers and everyday use.</p>
+      <ul>
+        <li>Weather, crop prices, pest and planting advice for farmers</li>
+        <li>Everyday help: health info, forms, translation, questions</li>
+        <li>Works over WhatsApp, SMS and voice calls, and on low-cost phones</li>
+      </ul>
+      <p class="earn"><b>Earns:</b> API access for banks, telcos and agri-businesses, partnerships, licensing.</p>
+    </article>
+    <article class="fp">
+      <span class="no">03</span>
+      <h3>Creator social app</h3>
+      <p class="sum">Social media that actually pays African creators.</p>
+      <ul>
+        <li>Short video and posts built for African audiences</li>
+        <li>Tips, gifts, shopping and brand deals, paid out by mobile money</li>
+        <li>Launch in one or two countries and a niche, then grow</li>
+      </ul>
+      <p class="earn"><b>Earns:</b> a cut of tips, gifts and sales, plus brand-deal fees.</p>
+    </article>
+    <article class="fp">
+      <span class="no">04</span>
+      <h3>ADT agent</h3>
+      <p class="sum">An AI agent that helps run the whole network of projects.</p>
+      <ul>
+        <li>Turns plans into tasks and bounties</li>
+        <li>Monitors progress, reviews and payouts across every repo</li>
+        <li>Flags stalled work, problems and projects that need help</li>
+      </ul>
+      <p class="earn"><b>Earns:</b> powers ADT first, then sold to other open source and remote teams.</p>
+    </article>
   </div>
 </div></section>
 
