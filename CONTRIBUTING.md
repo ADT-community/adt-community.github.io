@@ -18,3 +18,7 @@ Payouts go by mobile money or bank transfer. Share payment details privately wit
 ## Proposing a project
 
 Use the form at https://adt-community.github.io/propose.html, or open an issue in this repo with the **Project proposal** template. A proposal moves forward once it has a clear path to profit, a maintainer and at least 3 contributors.
+
+## License
+
+ADT projects are open source under the GNU AGPL-3.0. By contributing, you agree your work is licensed under the same terms as the project you contribute to.
