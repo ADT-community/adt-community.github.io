@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ADT Forum — Build for Africa. Get paid.</title>
+<meta name="description" content="Open source projects solving African problems. Developers across the continent build them together and get paid through bounties and goals.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#14110f; --panel:#1d1916; --line:#332c26;
+    --text:#f3ece4; --muted:#b3a89c;
+    --ochre:#e8a33d; --clay:#d4603a; --green:#5fae7a;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font:16px/1.6 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  a{color:var(--ochre)}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 22px}
+  h1,h2,h3{font-family:"Bricolage Grotesque",Inter,sans-serif;line-height:1.1}
+  h2{font-size:clamp(28px,4.5vw,42px);font-weight:800;margin-bottom:14px}
+  h3{font-size:20px;font-weight:500;margin-bottom:6px}
+  .kicker{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--ochre);font-weight:600;margin-bottom:10px}
+  .lead{color:var(--muted);font-size:18px;max-width:640px}
+  section{padding:80px 0;border-top:1px solid var(--line)}
+
+  nav{position:sticky;top:0;z-index:5;background:rgba(20,17,15,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+  .logo{font-family:"Bricolage Grotesque";font-weight:800;font-size:20px;color:var(--text);text-decoration:none}
+  .logo span{color:var(--ochre)}
+  nav ul{display:flex;gap:22px;list-style:none}
+  nav ul a{color:var(--muted);text-decoration:none;font-size:14px}
+  nav ul a:hover{color:var(--text)}
+  @media(max-width:720px){nav ul{display:none}}
+
+  .hero{padding:96px 0 88px;position:relative;overflow:hidden;border-top:0}
+  .hero::before{content:"";position:absolute;inset:-40% -20% auto auto;width:720px;height:720px;
+    background:radial-gradient(circle,rgba(232,163,61,.22),transparent 62%);pointer-events:none}
+  .hero h1{font-size:clamp(44px,8.5vw,92px);font-weight:800;letter-spacing:-.02em;max-width:880px}
+  .hero h1 em{font-style:normal;color:var(--ochre)}
+  .hero .lead{margin:24px 0 34px}
+  .btns{display:flex;gap:12px;flex-wrap:wrap}
+  .btn{display:inline-block;padding:13px 22px;border-radius:999px;font-weight:600;text-decoration:none;font-size:15px}
+  .btn.primary{background:var(--ochre);color:#1a1208}
+  .btn.ghost{border:1px solid var(--line);color:var(--text)}
+  .btn:hover{filter:brightness(1.08)}
+
+  .grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));margin-top:36px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:24px}
+  .card p{color:var(--muted);font-size:15px}
+  .num{font-family:"Bricolage Grotesque";font-weight:800;font-size:15px;color:var(--bg);background:var(--ochre);
+    width:30px;height:30px;border-radius:50%;display:grid;place-items:center;margin-bottom:14px}
+
+  .pay{display:grid;gap:16px;grid-template-columns:1fr 1fr;margin-top:36px}
+  @media(max-width:720px){.pay{grid-template-columns:1fr}}
+  .pay .card{padding:30px}
+  .tag{display:inline-block;font-size:12px;font-weight:600;padding:4px 10px;border-radius:999px;margin-bottom:14px}
+  .tag.b{background:rgba(232,163,61,.15);color:var(--ochre)}
+  .tag.g{background:rgba(95,174,122,.15);color:var(--green)}
+  .pay ul{margin:14px 0 0 18px;color:var(--muted);font-size:15px}
+  .pay li{margin:4px 0}
+  code{font-family:ui-monospace,Menlo,monospace;font-size:13px;background:#2a241f;padding:2px 7px;border-radius:6px;color:var(--text)}
+  .note{margin-top:20px;color:var(--muted);font-size:14px}
+
+  .stages{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:36px;border:1px solid var(--line);border-radius:16px;overflow:hidden}
+  .stage{padding:24px;border-right:1px solid var(--line);background:var(--panel)}
+  .stage:last-child{border-right:0}
+  .stage small{color:var(--ochre);font-weight:600;font-size:12px;letter-spacing:.1em;text-transform:uppercase}
+  .stage p{color:var(--muted);font-size:14px}
+  @media(max-width:720px){.stages{grid-template-columns:1fr 1fr}.stage:nth-child(2){border-right:0}.stage:nth-child(-n+2){border-bottom:1px solid var(--line)}}
+
+  .projects{margin-top:36px;display:grid;gap:12px}
+  .proj{display:grid;grid-template-columns:1fr auto;gap:6px 20px;align-items:start;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px 22px}
+  .proj p{color:var(--muted);font-size:14px;grid-column:1}
+  .diff{font-size:12px;font-weight:600;padding:4px 10px;border-radius:999px;white-space:nowrap;grid-row:1/3;grid-column:2;align-self:center}
+  .d1{background:rgba(95,174,122,.15);color:var(--green)}
+  .d2{background:rgba(232,163,61,.15);color:var(--ochre)}
+  .d3{background:rgba(212,96,58,.16);color:var(--clay)}
+  .hw{font-size:11px;color:var(--clay);font-weight:600;margin-left:8px;letter-spacing:.06em}
+
+  .cta{text-align:center}
+  .cta .lead{margin:0 auto 30px}
+  .cta .btns{justify-content:center}
+  .rules{margin-top:36px;display:grid;gap:16px;grid-template-columns:1fr 1fr}
+  @media(max-width:720px){.rules{grid-template-columns:1fr}}
+  .rules ul{margin-left:18px;color:var(--muted);font-size:15px}
+  .rules li{margin:5px 0}
+  footer{border-top:1px solid var(--line);padding:30px 0;color:var(--muted);font-size:14px}
+  footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <a class="logo" href="#">ADT<span>.</span>forum</a>
+  <ul>
+    <li><a href="#how">How it works</a></li>
+    <li><a href="#paid">Getting paid</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#rules">Rules</a></li>
+  </ul>
+</div></nav>
+
+<header class="hero"><div class="wrap">
+  <p class="kicker">Africa Deep Tech community</p>
+  <h1>Build for Africa.<br><em>Get paid</em> for it.</h1>
+  <p class="lead">Open source projects that solve African problems, in software and hardware. Developers from across the continent build them together and every project is run as a business.</p>
+  <div class="btns">
+    <a class="btn primary" href="https://github.com/ADT-community/ADT_forum/discussions">Join the discussion</a>
+    <a class="btn ghost" href="#projects">See projects</a>
+  </div>
+</div></header>
+
+<section id="how"><div class="wrap">
+  <p class="kicker">How it works</p>
+  <h2>Everything happens on GitHub.</h2>
+  <p class="lead">One account. No extra apps. Code, tasks, conversations and payments all live in one place.</p>
+  <div class="grid">
+    <div class="card"><div class="num">1</div><h3>Pick a project</h3><p>Each project has its own repo and its own category in Discussions.</p></div>
+    <div class="card"><div class="num">2</div><h3>Claim a task</h3><p>Find an issue with a bounty, comment to claim it, then build.</p></div>
+    <div class="card"><div class="num">3</div><h3>Ship it</h3><p>Open a pull request. A maintainer reviews and merges it.</p></div>
+    <div class="card"><div class="num">4</div><h3>Get paid</h3><p>Bounties pay on merge. Goals pay the team when the target is hit.</p></div>
+  </div>
+</div></section>
+
+<section id="paid"><div class="wrap">
+  <p class="kicker">Getting paid</p>
+  <h2>Two ways to earn.</h2>
+  <p class="lead">The price is agreed before work starts, so there are no surprises and nothing to argue about later.</p>
+  <div class="pay">
+    <div class="card">
+      <span class="tag b">Bounties</span>
+      <h3>A fixed price for a task</h3>
+      <p>Issues carry a label like <code>bounty:$50</code>. Whoever's pull request gets merged gets paid.</p>
+      <ul>
+        <li>Claim the issue first so no one duplicates work</li>
+        <li>Paid after merge</li>
+        <li>Good for features, fixes, designs and docs</li>
+      </ul>
+    </div>
+    <div class="card">
+      <span class="tag g">Goals</span>
+      <h3>A reward when the project hits a target</h3>
+      <p>Bigger milestones like <em>launch the MVP</em>, <em>first 1,000 users</em> or <em>first paying customer</em> carry a reward for the team.</p>
+      <ul>
+        <li>Team and shares agreed at the start</li>
+        <li>Paid when the goal is reached</li>
+        <li>Good for hardware builds and long efforts</li>
+      </ul>
+    </div>
+  </div>
+  <p class="note">Payouts go by mobile money or bank transfer. Payment details are only ever shared privately, never in public issues or discussions.</p>
+</div></section>
+
+<section><div class="wrap">
+  <p class="kicker">Every project is a business</p>
+  <h2>Built to make money.</h2>
+  <p class="lead">Code is open. Revenue comes from hosting, premium features, fees, licensing and partnerships. Projects with no path to profit get paused, so effort goes where it pays.</p>
+  <div class="stages">
+    <div class="stage"><small>Stage 1</small><h3>Build</h3><p>Ship a first version people use.</p></div>
+    <div class="stage"><small>Stage 2</small><h3>First revenue</h3><p>Prove people will pay.</p></div>
+    <div class="stage"><small>Stage 3</small><h3>Profit</h3><p>Revenue covers costs and bounties.</p></div>
+    <div class="stage"><small>Stage 4</small><h3>Company</h3><p>Grow, raise or spin out.</p></div>
+  </div>
+</div></section>
+
+<section id="projects"><div class="wrap">
+  <p class="kicker">Project ideas</p>
+  <h2>What we could build.</h2>
+  <p class="lead">A starting list. Easier projects that can earn quickly go first to prove the model.</p>
+  <div class="projects">
+    <div class="proj"><h3>Mobile money toolkit</h3><p>One API for payments across many African countries. Earns from a hosted API and support.</p><span class="diff d2">Medium</span></div>
+    <div class="proj"><h3>Farm advisory bot</h3><p>Weather, prices and pest advice for smallholder farmers over SMS and WhatsApp. Earns from subscriptions and agri-business partners.</p><span class="diff d2">Medium</span></div>
+    <div class="proj"><h3>Offline-first learning app</h3><p>Learning that works on low data and poor connections. Earns from school and NGO contracts.</p><span class="diff d2">Medium</span></div>
+    <div class="proj"><h3>African language AI</h3><p>AI tools that work in African languages. Earns from API access and licensing.</p><span class="diff d3">Hard</span></div>
+    <div class="proj"><h3>Creator platform</h3><p>Short video that actually pays African creators, through tips, commerce and brand deals paid out by mobile money.</p><span class="diff d3">Hard</span></div>
+    <div class="proj"><h3>Solar mini-grid monitor<span class="hw">HARDWARE</span></h3><p>Catches off-grid solar failures before they happen. Earns from devices and monitoring subscriptions.</p><span class="diff d3">Hard</span></div>
+    <div class="proj"><h3>Low-cost health devices<span class="hw">HARDWARE</span></h3><p>Affordable diagnostic tools for clinics. Earns from device sales.</p><span class="diff d3">Hard</span></div>
+  </div>
+</div></section>
+
+<section class="cta"><div class="wrap">
+  <p class="kicker">Got an idea?</p>
+  <h2>Propose a project.</h2>
+  <p class="lead">Post it in the Proposals category. It moves forward once it has a clear path to profit, a maintainer and at least 3 contributors.</p>
+  <div class="btns">
+    <a class="btn primary" href="https://github.com/ADT-community/ADT_forum/discussions/new?category=proposals">Propose a project</a>
+  </div>
+</div></section>
+
+<section id="rules"><div class="wrap">
+  <p class="kicker">Community rules</p>
+  <h2>Keep it respectful.</h2>
+  <div class="rules">
+    <div class="card"><h3>Do</h3><ul>
+      <li>Be patient, especially with newcomers</li>
+      <li>Critique work, not people</li>
+      <li>Credit others honestly</li>
+    </ul></div>
+    <div class="card"><h3>Don't</h3><ul>
+      <li>Harass or discriminate, including by country, tribe, religion, gender or language</li>
+      <li>Claim others' work or game bounties</li>
+      <li>Share anyone's private or payment details</li>
+    </ul></div>
+  </div>
+  <p class="note">Report problems with GitHub's "Report content" option or by messaging a maintainer. Moderators can remove content, cancel bounties earned in bad faith, or ban people.</p>
+</div></section>
+
+<footer><div class="wrap">
+  <span>A community initiative connected to <a href="https://africadeeptech.org">Africa Deep Tech</a>.</span>
+  <a href="https://github.com/ADT-community">github.com/ADT-community</a>
+</div></footer>
+
+</body>
+</html>
