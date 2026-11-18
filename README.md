@@ -1,7 +1,9 @@
-# adt-community.github.io
+# ADT Community
 
-Source for the ADT Forum website: https://adt-community.github.io
+Open source projects solving African problems, built by developers across the continent, who get paid through bounties and goals.
 
-Discussions and proposals live in [ADT_forum](https://github.com/ADT-community/ADT_forum).
+- **Website:** https://adt-community.github.io
+- **Propose a project:** https://adt-community.github.io/propose.html
+- **Discussions:** https://github.com/ADT-community/adt-community.github.io/discussions
 
-Community chat happens in [Discussions](https://github.com/ADT-community/adt-community.github.io/discussions).
+This repo holds the website, project proposals (as issues) and community docs.

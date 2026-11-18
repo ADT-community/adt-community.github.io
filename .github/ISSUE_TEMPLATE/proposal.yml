@@ -1,0 +1,47 @@
+name: Project proposal
+description: Propose a new open source project for the ADT community
+title: "[Proposal] "
+labels: ["proposal"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        A proposal moves forward once it has a clear path to profit, a maintainer and at least 3 contributors. Others can vote with 👍 and comment to join.
+  - type: textarea
+    id: problem
+    attributes:
+      label: The problem
+      description: What African problem does this solve, and for whom?
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: The solution
+      description: What will we build? Software, hardware, or both?
+    validations:
+      required: true
+  - type: textarea
+    id: profit
+    attributes:
+      label: Path to profit
+      description: Who pays, how much, and roughly when could it become profitable?
+    validations:
+      required: true
+  - type: textarea
+    id: mvp
+    attributes:
+      label: First version (MVP)
+      description: The smallest useful thing we could ship in about 3 months.
+    validations:
+      required: true
+  - type: input
+    id: skills
+    attributes:
+      label: Skills needed
+      placeholder: e.g. backend, mobile, ML, embedded, design
+  - type: input
+    id: maintainer
+    attributes:
+      label: Maintainer
+      description: Who will lead it? (GitHub username)
