@@ -3,8 +3,11 @@
 Open source projects solving African problems, built by developers across the continent, who get paid through bounties and goals.
 
 - **Website:** https://adt-community.github.io
+- **Work (Task Board):** https://adt-community.github.io/work.html
 - **Propose a project:** https://adt-community.github.io/propose.html
 - **Discussions:** https://github.com/ADT-community/adt-community.github.io/discussions
+- **Discord:** [Join our Discord](https://discord.gg/adt-community) ([documentation & channels](docs/discord.md))
+- **Weekly Updates:** [docs/updates/](docs/updates/)
 
 This repo holds the website, project proposals (as issues) and community docs.
 
