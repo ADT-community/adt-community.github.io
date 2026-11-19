@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ADT Work: paid tasks for African talent</title>
+<meta name="description" content="Short, paid tasks in design, code, research, writing and operations. Pick one, ship it in 2 to 5 hours, get paid weekly.">
+<link rel="stylesheet" href="style.css">
+<style>
+  .filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 20px 0 8px; }
+  .chip { border: 1px solid var(--line); background: none; color: var(--muted); border-radius: 999px; padding: 6px 12px;
+          font: 500 14px system-ui, sans-serif; cursor: pointer; }
+  .chip[aria-pressed="true"] { background: var(--text); color: var(--bg); border-color: var(--text); }
+  .group { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-right: 12px; }
+  .group small { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; margin-right: 2px; }
+  .count { font-size: 14px; margin: 8px 0 16px; }
+  .tasks { display: grid; gap: 10px; }
+  .task { display: block; border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; text-decoration: none; }
+  .task:hover { border-color: var(--muted); }
+  .task h3 { color: var(--text); font-size: 16px; margin: 4px 0 6px; }
+  .meta { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 13px; color: var(--muted); }
+  .top { display: flex; justify-content: space-between; gap: 10px; font-size: 13px; color: var(--muted); }
+  .price { font-weight: 700; color: var(--text); white-space: nowrap; }
+  .price.next { font-weight: 500; color: var(--muted); }
+  .taken { opacity: .55; }
+  .steps { display: grid; gap: 12px; margin-top: 24px; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); }
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <a class="logo" href="index.html">ADT Community</a>
+  <ul>
+    <li><a href="work.html">Work</a></li>
+    <li><a href="index.html#projects">Projects</a></li>
+    <li><a href="propose.html">Propose</a></li>
+  </ul>
+</div></nav>
+
+<header class="hero"><div class="wrap">
+  <p class="kicker">ADT Work</p>
+  <h1>Short tasks.<br><em>Real products.</em> Paid weekly.</h1>
+  <p class="lead">Design, code, research, writing and operations for products built in Africa. Every task takes 2 to 5 hours, has a clear "done when", and a fixed price agreed before you start.</p>
+  <div class="steps">
+    <div class="card"><div class="num">1</div><h3>Pick a task</h3><p>Filter by skill, level and pay.</p></div>
+    <div class="card"><div class="num">2</div><h3>Claim it</h3><p>Comment on the task. Start once you're assigned.</p></div>
+    <div class="card"><div class="num">3</div><h3>Deliver in 5 days</h3><p>A reviewer checks it against "done when".</p></div>
+    <div class="card"><div class="num">4</div><h3>Get paid weekly</h3><p>Approved Mon–Sun, paid by Wednesday to mobile money or bank.</p></div>
+  </div>
+  <p class="note">Payouts start on Wednesday 6 January 2027. Work approved before then is paid in that first run. Claiming a task needs a free GitHub account.</p>
+</div></header>
+
+<section id="tasks"><div class="wrap">
+  <h2>Open tasks</h2>
+  <div class="filters" id="filters"></div>
+  <p class="count" id="count">Loading tasks…</p>
+  <div class="tasks" id="list"></div>
+</div></section>
+
+<section class="cta"><div class="wrap">
+  <p class="kicker">Have work that needs doing?</p>
+  <h2>Post tasks on ADT Work.</h2>
+  <p class="lead">Startups and teams will be able to post paid tasks here and reach talent across Africa. Get in touch to be an early partner.</p>
+  <div class="btns"><a class="btn primary" href="https://github.com/ADT-community/adt-community.github.io/issues/new?title=%5BPartner%5D%20&labels=partner">Become a partner</a></div>
+</div></section>
+
+<footer><div class="wrap">
+  <span>Part of <a href="index.html">ADT Community</a>, connected to <a href="https://africadeeptech.org">Africa Deep Tech</a>.</span>
+  <a href="https://github.com/ADT-community">github.com/ADT-community</a>
+</div></footer>
+
+<script>
+const REPOS = {
+  "trans_sport": "Minibus app",
+  "locallity_ai": "Local-language AI",
+  "content_feed": "Creator social app",
+  "ADT_agent": "ADT agent",
+  "trader": "Quant trading lab",
+  "adt-community.github.io": "ADT Community"
+};
+const FILTERS = {
+  type: ["All", "Design", "Code", "Research", "Operations"],
+  pay: ["All", "Paid $20", "Next wave"],
+  level: ["All", "Beginner"],
+  status: ["Open", "All"]
+};
+const state = { type: "All", pay: "All", level: "All", status: "Open" };
+let tasks = [];
+
+function cache(key, value) {
+  try {
+    if (value === undefined) {
+      const c = JSON.parse(sessionStorage.getItem(key) || "null");
+      return c && Date.now() - c.t < 10 * 60 * 1000 ? c.v : null;
+    }
+    sessionStorage.setItem(key, JSON.stringify({ t: Date.now(), v: value }));
+  } catch (e) { return null; }
+}
+
+function field(body, name) {
+  const m = (body || "").match(new RegExp("\\*\\*" + name + ":\\*\\*\\s*([^·\\n]+)"));
+  return m ? m[1].trim() : "";
+}
+
+function toTask(repo, i) {
+  const labels = i.labels.map(l => l.name);
+  const type = repo === "adt-community.github.io" ? "Operations"
+    : labels.includes("design") ? "Design"
+    : labels.includes("research") ? "Research" : "Code";
+  const priced = labels.find(l => /^bounty:\$\d+/.test(l));
+  const level = field(i.body, "Level");
+  return {
+    title: i.title, url: i.html_url, project: REPOS[repo], type,
+    pay: priced ? priced.replace("bounty:", "") : "Next wave",
+    paid: !!priced, hours: field(i.body, "Time"), level,
+    beginner: labels.includes("good first issue") || /^Beginner/.test(level),
+    taken: i.assignees && i.assignees.length > 0,
+    updated: i.updated_at
+  };
+}
+
+async function load() {
+  const hit = cache("adt-work");
+  if (hit) return hit;
+  const all = await Promise.all(Object.keys(REPOS).map(async repo => {
+    try {
+      const res = await fetch(`https://api.github.com/repos/ADT-community/${repo}/issues?state=open&per_page=100`);
+      if (!res.ok) return [];
+      const items = await res.json();
+      return items
+        .filter(i => !i.pull_request)
+        .filter(i => i.labels.some(l => l.name === "bounty" || l.name === "next-wave"))
+        .map(i => toTask(repo, i));
+    } catch (e) { return []; }
+  }));
+  const flat = all.flat().sort((a, b) => (b.paid - a.paid) || (a.taken - b.taken) || b.updated.localeCompare(a.updated));
+  cache("adt-work", flat);
+  return flat;
+}
+
+function renderFilters() {
+  const box = document.getElementById("filters");
+  box.innerHTML = "";
+  for (const [key, opts] of Object.entries(FILTERS)) {
+    const g = document.createElement("div");
+    g.className = "group";
+    g.innerHTML = `<small>${key}</small>`;
+    for (const o of opts) {
+      const b = document.createElement("button");
+      b.className = "chip";
+      b.textContent = o;
+      b.setAttribute("aria-pressed", state[key] === o);
+      b.onclick = () => { state[key] = o; renderFilters(); renderList(); };
+      g.appendChild(b);
+    }
+    box.appendChild(g);
+  }
+}
+
+function esc(s) { return String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c])); }
+
+function renderList() {
+  const shown = tasks.filter(t =>
+    (state.type === "All" || t.type === state.type) &&
+    (state.pay === "All" || (state.pay === "Paid $20" ? t.paid : !t.paid)) &&
+    (state.level === "All" || t.beginner) &&
+    (state.status === "All" || !t.taken));
+  const paidOpen = tasks.filter(t => t.paid && !t.taken).length;
+  document.getElementById("count").textContent =
+    `${shown.length} task${shown.length === 1 ? "" : "s"} shown · ${paidOpen} paid task${paidOpen === 1 ? "" : "s"} open now`;
+  document.getElementById("list").innerHTML = shown.map(t => `
+    <a class="task${t.taken ? " taken" : ""}" href="${t.url}" target="_blank" rel="noopener">
+      <div class="top"><span>${esc(t.project)} · ${t.type}</span><span class="price${t.paid ? "" : " next"}">${esc(t.pay)}</span></div>
+      <h3>${esc(t.title)}</h3>
+      <div class="meta">
+        ${t.hours ? `<span>${esc(t.hours)}</span>` : ""}
+        ${t.level ? `<span>${esc(t.level)}</span>` : ""}
+        ${t.taken ? "<span>Taken</span>" : "<span>Open to claim</span>"}
+      </div>
+    </a>`).join("") || `<p>No tasks match these filters.</p>`;
+}
+
+renderFilters();
+load().then(t => { tasks = t; renderList(); }).catch(() => {
+  document.getElementById("count").innerHTML =
+    'Couldn\'t load tasks right now. <a href="https://github.com/ADT-community">See them on GitHub</a>.';
+});
+</script>
+</body>
+</html>
