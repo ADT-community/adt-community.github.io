@@ -5,15 +5,21 @@ The full overview is on the website: https://adt-community.github.io
 ## Quick version
 
 1. Pick a project repo in [ADT-community](https://github.com/ADT-community).
-2. Find an issue with a `bounty:$…` label and comment to claim it.
-3. Fork, branch, and open a pull request that links the issue.
-4. Once a maintainer merges it, the bounty is paid.
+2. Find a task on [ADT Work](https://adt-community.github.io/work.html). Paid tasks carry `bounty:$20`; `next-wave` tasks are open now and become paid as funding grows.
+3. Comment "I'd like to take this" and **wait to be assigned** before starting. Only the assigned contributor is paid.
+4. Fork, branch, and open a pull request that links the issue **within 5 days** of being assigned. Quiet claims get a check-in, then go back to the pool.
+5. Once a maintainer merges it, you're paid in the next weekly run.
 
-**Goals** are bigger milestones (e.g. launch the MVP, first paying customer). The team and each member's share are agreed in the project's issues before work starts, and the reward is paid when the goal is reached.
+Every task is sized at 2 to 5 hours and lists its steps, files and "done when" checklist.
 
 ## Payments
 
-Payouts go by mobile money or bank transfer. Share payment details privately with a maintainer, **never** in public issues.
+- **$20 per merged paid task.**
+- **Weekly:** work merged Monday to Sunday is paid by the following Wednesday, by mobile money or bank transfer.
+- **First payout run: Wednesday 6 January 2027**, covering everything merged before then.
+- You share payout details once, privately, after your first merged task. **Never** post them in public issues.
+
+ADT projects don't earn money yet, so $20 is a thank-you. The bigger value is real, public work on live products, and regular contributors get first say in revenue sharing once projects earn.
 
 ## Proposing a project
 
