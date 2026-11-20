@@ -312,11 +312,11 @@
    "why": "Momentum is visible: people join communities that ship every week.",
    "must": [
     "Discord channels: welcome, announcements, how-we-pay, one per project, ideas, help; rules from CODE_OF_CONDUCT.md",
-    "A bot posting new tasks to a channel",
+    "A bot posting new tasks from ADT Work (`tasks.json`) to a channel",
     "Weekly update template (shipped, paid, new tasks, next) and the first update"
    ],
    "done": [
-    "Server live with bounty feed",
+    "Server live with a new-task feed",
     "`docs/discord.md` and `docs/updates/` written"
    ],
    "out": "Long-term moderation.",
@@ -668,7 +668,7 @@
    "level": "Intermediate",
    "why": "Weekly payouts start on 6 January 2027. Nobody should be missed or paid twice.",
    "must": [
-    "Find merged PRs that closed issues with a `bounty:$` label, across all repos",
+    "Read approved deliveries from ADT Work's records (the form service's export of claims and deliveries) and prices from the website's `tasks.json`",
     "Ledger: week, repo, issue, contributor, amount, status (owed/paid)",
     "A maintainer adds a `paid` label to mark it paid",
     "Weekly summary every Monday of what to pay on Wednesday"
