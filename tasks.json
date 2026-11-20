@@ -449,7 +449,7 @@
    "out": "Code. Crypto. Options trading.",
    "skills": "UI/UX design, Figma, fintech",
    "needs": "",
-   "status": "open"
+   "status": "taken"
   },
   {
    "id": "qt-14",
@@ -478,7 +478,7 @@
    "out": "Contacting partners (separate task). Legal advice.",
    "skills": "Research, finance, regulation",
    "needs": "",
-   "status": "open"
+   "status": "taken"
   },
   {
    "id": "qt-15",
@@ -507,7 +507,7 @@
    "out": "Signing contracts.",
    "skills": "Sales, finance, writing",
    "needs": "Research: partners, rules and competitors for a Ghana investing app",
-   "status": "open"
+   "status": "taken"
   },
   {
    "id": "la-2",
@@ -946,7 +946,7 @@
    "out": "NGX and NSE (later).",
    "skills": "Python, scraping",
    "needs": "",
-   "status": "open"
+   "status": "taken"
   },
   {
    "id": "qt-4",
@@ -972,7 +972,7 @@
    "out": "Parallel-market rates.",
    "skills": "Python, research",
    "needs": "",
-   "status": "open"
+   "status": "taken"
   },
   {
    "id": "qt-11",
@@ -1002,7 +1002,7 @@
    "out": "Real broker connection, real payments.",
    "skills": "Python or Node, SQL, finance",
    "needs": "",
-   "status": "open"
+   "status": "taken"
   },
   {
    "id": "qt-12",
@@ -1032,7 +1032,7 @@
    "out": "Real money, real orders, real ID checks.",
    "skills": "Frontend, JavaScript",
    "needs": "Figma: design the investing app; Price feed: GSE daily prices",
-   "status": "open"
+   "status": "taken"
   },
   {
    "id": "qt-16",
@@ -1060,7 +1060,7 @@
    "out": "Live payments.",
    "skills": "Backend, payments APIs",
    "needs": "Trading backend: accounts, wallet and orders",
-   "status": "open"
+   "status": "taken"
   },
   {
    "id": "qt-17",
@@ -1089,7 +1089,7 @@
    "out": "Choosing the partner.",
    "skills": "Backend, finance APIs",
    "needs": "Partner kit; Trading backend",
-   "status": "open"
+   "status": "taken"
   },
   {
    "id": "qt-18",
@@ -1116,7 +1116,7 @@
    "out": "Video production.",
    "skills": "Writing, finance basics, Twi",
    "needs": "",
-   "status": "open"
+   "status": "taken"
   },
   {
    "id": "la-9",
