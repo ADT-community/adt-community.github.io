@@ -13,6 +13,8 @@
   .phone { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 8px; }
   .err { color: #b3261e; font-size: 14px; min-height: 1em; }
   .ok { border: 1px solid var(--line); border-radius: 10px; padding: 16px; }
+  .panel { margin-top: 24px; max-width: 560px; }
+  .panel p { margin-top: 8px; }
 </style>
 </head>
 <body>
@@ -25,6 +27,12 @@
   <p class="kicker">ADT Work for companies</p>
   <h1 style="font-size:clamp(26px,5vw,40px)">Get work done by talent across Africa</h1>
   <p class="lead">Post fixed-price tasks in design, code, research, writing and operations. Vetted contributors living in Africa deliver, a reviewer checks the work, and you pay only for approved work.</p>
+
+  <div class="panel">
+    <h3>Transparent pricing</h3>
+    <p><b>$23 per approved task:</b> $20 to the contributor plus a 15% platform fee ($3). <b>Pilot offer:</b> no platform fee on your first two approved tasks — $20 each, $40 total. Nothing is charged for work that fails review.</p>
+    <p><a href="docs/sales/one-pager.pdf">One-pager (PDF)</a> · <a href="docs/sales/pricing.md">Full pricing</a></p>
+  </div>
 
   <form id="partner" novalidate>
     <input type="hidden" name="type" value="partner">

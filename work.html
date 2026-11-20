@@ -33,6 +33,11 @@
   .proj[open] > summary .chev { transform: rotate(180deg); }
   .proj .tasks { padding: 0 12px 12px; }
   .steps { display: grid; gap: 12px; margin-top: 24px; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); }
+  .partner .grid { margin-top: 24px; text-align: left; }
+  .partner .card p { font-size: 14px; }
+  .partner-price { border: 1px solid var(--line); border-radius: 10px; padding: 18px; margin: 24px auto 0; max-width: 560px; text-align: left; }
+  .partner-price .amount { display: block; font-size: 22px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+  .partner .btns { margin-top: 24px; justify-content: center; }
 </style>
 </head>
 <body>
@@ -41,6 +46,7 @@
   <a class="logo" href="index.html">ADT Community</a>
   <ul>
     <li><a href="work.html">Work</a></li>
+    <li><a href="work.html#partners">For companies</a></li>
     <li><a href="index.html#projects">Projects</a></li>
     <li><a href="propose.html">Propose</a></li>
   </ul>
@@ -66,11 +72,25 @@
   <div id="list"></div>
 </div></section>
 
-<section class="cta"><div class="wrap">
-  <p class="kicker">Have work that needs doing?</p>
-  <h2>Post tasks on ADT Work.</h2>
-  <p class="lead">Startups and teams will be able to post paid tasks here and reach talent across Africa. Get in touch to be an early partner.</p>
-  <div class="btns"><a class="btn primary" href="partner.html">Become a partner</a></div>
+<section class="cta partner" id="partners"><div class="wrap">
+  <p class="kicker">For companies, agencies and NGOs</p>
+  <h2>Post a task. Get real work delivered in a week.</h2>
+  <p class="lead">Startups and teams can post short, fixed-price tasks and reach vetted contributors living in Africa. You approve the result before we invoice.</p>
+  <div class="grid">
+    <div class="card"><div class="num">01</div><h3>Vetted African talent</h3><p>Contributors are checked before they are assigned, and every brief has a clear "done when" list.</p></div>
+    <div class="card"><div class="num">02</div><h3>Fixed-price tasks</h3><p>$20 per approved task, agreed before work starts. No hourly billing and no charge for work that fails review.</p></div>
+    <div class="card"><div class="num">03</div><h3>Weekly delivery</h3><p>Delivery in 7 days for a pilot task. A reviewer checks it against your acceptance test; approved work is paid weekly.</p></div>
+  </div>
+  <div class="partner-price">
+    <span class="amount">$23 per approved task</span>
+    <p>$20 to the contributor + a 15% platform fee ($3). <b>Pilot offer:</b> the first two approved tasks have no platform fee — $20 each, $40 total. Standard pricing applies from task three.</p>
+  </div>
+  <div class="btns">
+    <a class="btn primary" href="partner.html">Become a partner</a>
+    <a class="btn ghost" href="docs/sales/one-pager.pdf">One-pager (PDF)</a>
+    <a class="btn ghost" href="docs/sales/pricing.md">Full pricing</a>
+  </div>
+  <p class="note">To start, send a one-paragraph brief and an acceptance test. We assign a contributor within 2 working days.</p>
 </div></section>
 
 <footer><div class="wrap">
