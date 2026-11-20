@@ -23,6 +23,15 @@
   .price { font-weight: 700; color: var(--text); white-space: nowrap; }
   .price.next { font-weight: 500; color: var(--muted); }
   .taken { opacity: .55; }
+  .proj { border: 1px solid var(--line); border-radius: 12px; margin: 10px 0; }
+  .proj > summary { list-style: none; cursor: pointer; padding: 16px; display: flex; justify-content: space-between;
+                    align-items: center; gap: 12px; }
+  .proj > summary::-webkit-details-marker { display: none; }
+  .proj > summary h3 { margin: 0; font-size: 18px; color: var(--text); }
+  .proj > summary .sub { font-size: 13px; color: var(--muted); margin-top: 2px; }
+  .proj > summary .chev { transition: transform .2s; color: var(--muted); font-size: 18px; }
+  .proj[open] > summary .chev { transform: rotate(180deg); }
+  .proj .tasks { padding: 0 12px 12px; }
   .steps { display: grid; gap: 12px; margin-top: 24px; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); }
 </style>
 </head>
@@ -54,7 +63,7 @@
   <h2>Open tasks</h2>
   <div class="filters" id="filters"></div>
   <p class="count" id="count">Loading tasks…</p>
-  <div class="tasks" id="list"></div>
+  <div id="list"></div>
 </div></section>
 
 <section class="cta"><div class="wrap">
@@ -74,10 +83,11 @@
 const FILTERS = {
   type: ["All", "Design", "Code", "Research", "Operations"],
   pay: ["All", "Paid", "Next wave"],
-  project: ["All", "Minibus app", "ADT Work & community", "Local-language AI", "Quant trading lab", "ADT agent", "Creator social app"],
   status: ["Open", "All"]
 };
-const state = { type: "All", pay: "All", project: "All", status: "Open" };
+const state = { type: "All", pay: "All", status: "Open" };
+const PROJECTS = ["Minibus app", "ADT Work & community", "Local-language AI", "Quant trading lab", "ADT agent", "Creator social app"];
+const openGroups = new Set();
 let tasks = [];
 
 function renderFilters() {
@@ -103,21 +113,38 @@ function renderList() {
   const shown = tasks.filter(t =>
     (state.type === "All" || t.type === state.type) &&
     (state.pay === "All" || (state.pay === "Paid" ? t.paid : !t.paid)) &&
-    (state.project === "All" || t.project === state.project) &&
     (state.status === "All" || t.status === "open"));
   const paidOpen = tasks.filter(t => t.paid && t.status === "open").length;
   document.getElementById("count").textContent =
     `${shown.length} task${shown.length === 1 ? "" : "s"} shown · ${paidOpen} paid task${paidOpen === 1 ? "" : "s"} open now`;
-  document.getElementById("list").innerHTML = shown.map(t => `
+  const card = t => `
     <a class="task${t.status === "open" ? "" : " taken"}" href="task.html?id=${encodeURIComponent(t.id)}">
-      <div class="top"><span>${adtEsc(t.project)} · ${adtEsc(t.type)}</span><span class="price${t.paid ? "" : " next"}">${t.paid ? "$" + t.reward : "Next wave"}</span></div>
+      <div class="top"><span>${adtEsc(t.type)}</span><span class="price${t.paid ? "" : " next"}">${t.paid ? "$" + t.reward : "Next wave"}</span></div>
       <h3>${adtEsc(t.title)}</h3>
       <div class="meta">
         <span>About ${adtEsc(t.hours)} hours</span>
         <span>${adtEsc(t.level)}</span>
         <span>${t.status === "open" ? "Open to claim" : "Taken"}</span>
       </div>
-    </a>`).join("") || `<p>No tasks match these filters.</p>`;
+    </a>`;
+  const names = [...PROJECTS, ...new Set(shown.map(t => t.project).filter(p => !PROJECTS.includes(p)))];
+  const html = names.map(name => {
+    const list = shown.filter(t => t.project === name);
+    if (!list.length) return "";
+    const paid = list.filter(t => t.paid);
+    const money = paid.reduce((n, t) => n + (t.reward || 0), 0);
+    return `<details class="proj" data-project="${adtEsc(name)}"${openGroups.has(name) ? " open" : ""}>
+      <summary><div><h3>${adtEsc(name)}</h3>
+        <div class="sub">${list.length} task${list.length === 1 ? "" : "s"} · ${paid.length} paid${money ? ` ($${money})` : ""}</div></div>
+        <span class="chev" aria-hidden="true">▾</span></summary>
+      <div class="tasks">${list.map(card).join("")}</div>
+    </details>`;
+  }).join("");
+  const box = document.getElementById("list");
+  box.innerHTML = html || `<p>No tasks match these filters.</p>`;
+  box.querySelectorAll("details.proj").forEach(d => d.addEventListener("toggle", () => {
+    d.open ? openGroups.add(d.dataset.project) : openGroups.delete(d.dataset.project);
+  }));
 }
 
 renderFilters();
