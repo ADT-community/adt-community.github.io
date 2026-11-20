@@ -449,7 +449,7 @@
    "out": "Code. Crypto. Options trading.",
    "skills": "UI/UX design, Figma, fintech",
    "needs": "",
-   "status": "taken"
+   "status": "done"
   },
   {
    "id": "qt-14",
@@ -478,7 +478,7 @@
    "out": "Contacting partners (separate task). Legal advice.",
    "skills": "Research, finance, regulation",
    "needs": "",
-   "status": "taken"
+   "status": "done"
   },
   {
    "id": "qt-15",
@@ -1002,7 +1002,7 @@
    "out": "Real broker connection, real payments.",
    "skills": "Python or Node, SQL, finance",
    "needs": "",
-   "status": "taken"
+   "status": "done"
   },
   {
    "id": "qt-12",
@@ -1032,7 +1032,7 @@
    "out": "Real money, real orders, real ID checks.",
    "skills": "Frontend, JavaScript",
    "needs": "Figma: design the investing app; Price feed: GSE daily prices",
-   "status": "taken"
+   "status": "done"
   },
   {
    "id": "qt-16",
@@ -1116,7 +1116,7 @@
    "out": "Video production.",
    "skills": "Writing, finance basics, Twi",
    "needs": "",
-   "status": "taken"
+   "status": "done"
   },
   {
    "id": "la-9",
