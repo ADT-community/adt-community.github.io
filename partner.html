@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Partner with ADT Work</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  form { display: grid; gap: 16px; max-width: 560px; margin-top: 20px; }
+  label { display: grid; gap: 6px; font-weight: 600; font-size: 15px; }
+  label small { font-weight: 400; color: var(--muted); }
+  input, select, textarea { font: inherit; padding: 10px 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); color: var(--text); }
+  .phone { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 8px; }
+  .err { color: #b3261e; font-size: 14px; min-height: 1em; }
+  .ok { border: 1px solid var(--line); border-radius: 10px; padding: 16px; }
+</style>
+</head>
+<body>
+<nav><div class="wrap">
+  <a class="logo" href="index.html">ADT Community</a>
+  <ul><li><a href="work.html">Work</a></li><li><a href="index.html#projects">Projects</a></li></ul>
+</div></nav>
+
+<section><div class="wrap">
+  <p class="kicker">ADT Work for companies</p>
+  <h1 style="font-size:clamp(26px,5vw,40px)">Get work done by talent across Africa</h1>
+  <p class="lead">Post fixed-price tasks in design, code, research, writing and operations. Vetted contributors living in Africa deliver, a reviewer checks the work, and you pay only for approved work.</p>
+
+  <form id="partner" novalidate>
+    <input type="hidden" name="type" value="partner">
+    <label>Your name <input name="name" autocomplete="name" required></label>
+    <label>Company or organisation <input name="company" autocomplete="organization" required></label>
+    <label>Work email <input name="email" type="email" autocomplete="email" required></label>
+    <label>Phone or WhatsApp <small>Optional, any country</small> <input name="phone" inputmode="tel" autocomplete="tel"></label>
+    <label>What do you need done? <small>Kinds of tasks, rough volume per month</small>
+      <textarea name="needs" rows="4" required></textarea></label>
+    <p class="err" id="err" role="alert"></p>
+    <button class="btn primary" type="submit">Become a partner</button>
+  </form>
+  <div id="done" hidden></div>
+</div></section>
+
+<script src="adt.js"></script>
+<script>
+document.getElementById("partner").addEventListener("submit", async ev => {
+  ev.preventDefault();
+  const f = ev.target, err = document.getElementById("err");
+  err.textContent = "";
+  if (!f.checkValidity()) return (err.textContent = "Please fill in your name, company, a valid email and what you need.");
+  const btn = f.querySelector("button"); btn.disabled = true; btn.textContent = "Sending…";
+  try {
+    const r = await adtSend(f);
+    if (r.notReady) { err.textContent = "Partner sign-up opens very soon."; btn.disabled = false; btn.textContent = "Become a partner"; return; }
+    if (!r.ok) throw new Error();
+    f.hidden = true;
+    const d = document.getElementById("done"); d.hidden = false;
+    d.innerHTML = '<div class="ok"><h3>Thanks</h3><p>We will be in touch within 2 working days.</p></div>';
+  } catch (e) { err.textContent = "Couldn't send. Please try again."; btn.disabled = false; btn.textContent = "Become a partner"; }
+});
+</script>
+</body>
+</html>

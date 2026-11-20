@@ -2,24 +2,25 @@
 
 The full overview is on the website: https://adt-community.github.io
 
-## Quick version
+## How work is claimed and paid
 
-1. Pick a project repo in [ADT-community](https://github.com/ADT-community).
-2. Find a task on [ADT Work](https://adt-community.github.io/work.html). Paid tasks carry `bounty:$20`; `next-wave` tasks are open now and become paid as funding grows.
-3. Comment "I'd like to take this" and **wait to be assigned** before starting. Only the assigned contributor is paid.
-4. Fork, branch, and open a pull request that links the issue **within 5 days** of being assigned. Quiet claims get a check-in, then go back to the pool.
-5. Once a maintainer merges it, you're paid in the next weekly run.
+**All paid tasks are listed, claimed and paid through [ADT Work](https://adt-community.github.io/work.html), and are open only to people living in Africa.** GitHub is where the code and the plain task descriptions live; it is not where tasks are claimed or paid.
 
-Every task is sized at 2 to 5 hours and lists its steps, files and "done when" checklist.
+1. Find a task on [ADT Work](https://adt-community.github.io/work.html).
+2. Claim it on the website with your **African phone number**. We confirm the number and assign you. Don't start before you're assigned.
+3. Share progress within 5 days and deliver within 14. Send your work (Figma file, document, or a pull request to the project repo) through the website's **Deliver work** page.
+4. A reviewer checks it against the task's "Done when" list. Approved work is paid.
+
+Pull requests from people who didn't claim the task on ADT Work are welcome as open-source contributions, but they aren't paid.
 
 ## Payments
 
-- **$20 per merged paid task.**
-- **Weekly:** work merged Monday to Sunday is paid by the following Wednesday, by mobile money or bank transfer.
-- **First payout run: Wednesday 6 January 2027**, covering everything merged before then.
-- You share payout details once, privately, after your first merged task. **Never** post them in public issues.
+- **$20 per approved paid task.** "Next wave" tasks become paid as funding grows.
+- **Weekly:** work approved Monday to Sunday is paid by the following Wednesday, to an African mobile money or bank account.
+- **First payout run: Wednesday 6 January 2027**, covering everything approved before then.
+- You share payout details once, privately, after your first approved task. **Never** post them in public.
 
-ADT projects don't earn money yet, so $20 is a thank-you. The bigger value is real, public work on live products, and regular contributors get first say in revenue sharing once projects earn.
+ADT projects don't earn money yet, so $20 is a thank-you. The bigger value is real work on live products, and regular contributors get first say in revenue sharing once projects earn.
 
 ## Proposing a project
 

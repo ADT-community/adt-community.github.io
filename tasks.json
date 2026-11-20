@@ -1,0 +1,1241 @@
+{
+ "updated": "2026-11-19",
+ "tasks": [
+  {
+   "id": "ts-4",
+   "project": "Minibus app",
+   "repo": "trans_sport",
+   "issue": 4,
+   "title": "Connect the driver app and owner dashboard to the backend",
+   "type": "Code",
+   "paid": true,
+   "reward": 20,
+   "deliverable": "Driver GPS and fares flow into the backend; owners see live vehicles and earnings.",
+   "hours": "8–12",
+   "level": "Intermediate",
+   "why": "This makes the pilot real: owners see their own vehicles moving and earning.",
+   "must": [
+    "Driver app: when on shift and `apiUrl` is set, send a ping every 20 s; queue pings while offline (max 500) and send them in order when back",
+    "Driver app: fares recorded to `POST /fares`",
+    "Owner dashboard: live map from `GET /vehicles/latest` every 15 s, stale vehicles greyed",
+    "Owner dashboard: earnings from the earnings endpoint",
+    "Demo mode unchanged when `apiUrl` is empty"
+   ],
+   "done": [
+    "End-to-end demo: a phone on shift appears live on the owner map",
+    "Offline queue tested by toggling network",
+    "Screen recording in the pull request"
+   ],
+   "out": "Native apps, background tracking with the browser closed.",
+   "skills": "JavaScript",
+   "needs": "Backend v1; both UI implementations",
+   "status": "open"
+  },
+  {
+   "id": "ts-5",
+   "project": "Minibus app",
+   "repo": "trans_sport",
+   "issue": 5,
+   "title": "Backend v1: data model and API for pings, fares and earnings",
+   "type": "Code",
+   "paid": true,
+   "reward": 20,
+   "deliverable": "A working backend in `backend/` that the apps can use for the pilot.",
+   "hours": "10–15",
+   "level": "Intermediate",
+   "why": "Nothing receives the drivers' GPS or fares yet. This is the core of the product.",
+   "must": [
+    "PostgreSQL schema: owners, vehicles, drivers, routes, shifts, location_pings, fares (money in minor units)",
+    "`POST /locations` `{ vehicleId, lat, lng, accuracy, ts }` and `POST /fares` `{ vehicleId, amount, method, ts }`, matching `web/config.js`",
+    "`GET /vehicles/latest` (newest ping per vehicle) and `GET /vehicles/{id}/earnings?days=7` (daily totals, cash vs mobile money, city timezone)",
+    "Phone-number sign-in for drivers and owners (OTP logged to console for now); owners only see their own vehicles",
+    "Tests, a `docs/data-model.md`, and run instructions"
+   ],
+   "done": [
+    "All endpoints work and are tested",
+    "Bad input returns 400; other owners' data is never returned",
+    "Runs locally with one command"
+   ],
+   "out": "Deployment, real SMS, payments.",
+   "skills": "Python (FastAPI) or Node (Express), SQL",
+   "needs": "",
+   "status": "open"
+  },
+  {
+   "id": "ts-8",
+   "project": "Minibus app",
+   "repo": "trans_sport",
+   "issue": 8,
+   "title": "Mobile money fares in a sandbox",
+   "type": "Code",
+   "paid": true,
+   "reward": 20,
+   "deliverable": "Drivers can request a fare by mobile money and see it confirmed, in a provider's sandbox.",
+   "hours": "8–12",
+   "level": "Intermediate",
+   "why": "Digital fares are goal G2 and a revenue line (a small cut of each fare).",
+   "must": [
+    "Compare 3 providers (e.g. Paystack, Flutterwave, MTN MoMo API) on fees for small payments, countries, sandbox, payout speed; pick one",
+    "Backend endpoint to request a payment and a webhook that confirms it (signature verified)",
+    "Driver app shows pending and confirmed states",
+    "Keys only from environment variables"
+   ],
+   "done": [
+    "Provider comparison in `docs/research/mobile-money.md`",
+    "Sandbox payment completes end to end",
+    "Fare stored only after confirmation"
+   ],
+   "out": "Live payments, payouts to owners.",
+   "skills": "Backend, payments APIs",
+   "needs": "Backend v1",
+   "status": "open"
+  },
+  {
+   "id": "ts-9",
+   "project": "Minibus app",
+   "repo": "trans_sport",
+   "issue": 9,
+   "title": "Market research: pilot city, 3 owner interviews and pricing",
+   "type": "Research",
+   "paid": true,
+   "reward": 20,
+   "deliverable": "A short report that picks the pilot city and sets our price per vehicle.",
+   "hours": "8–12",
+   "level": "Beginner",
+   "why": "Real owners tell us what they'll pay. Profit is goal number one, so this comes first.",
+   "must": [
+    "Compare 3 candidate cities: minibus fleet, mobile money use, driver smartphones, our contacts",
+    "Interview 3 owners (in person or phone): how they track vehicles, biggest losses, what they'd pay monthly per vehicle",
+    "Recommend the pilot city, route and a monthly price per vehicle"
+   ],
+   "done": [
+    "`docs/research/pilot.md` with the city comparison, anonymised interview notes and the price recommendation"
+   ],
+   "out": "Sharing anyone's identity or recordings.",
+   "skills": "Research, interviewing, local language",
+   "needs": "",
+   "status": "open"
+  },
+  {
+   "id": "ts-13",
+   "project": "Minibus app",
+   "repo": "trans_sport",
+   "issue": 13,
+   "title": "Figma: design the driver app",
+   "type": "Design",
+   "paid": true,
+   "reward": 20,
+   "deliverable": "A complete Figma design for the driver app, ready for a developer to build.",
+   "hours": "8–12",
+   "level": "Intermediate",
+   "why": "Drivers feed everything: their GPS powers the owner dashboard and passenger map. They use the app one-handed, in traffic, on cheap Android phones in bright sun.",
+   "must": [
+    "**Sign in:** phone number and one-time code",
+    "**Home / shift:** big Start shift and End shift buttons, shift timer, GPS status (on, weak, off), offline indicator with pings waiting",
+    "**Record a cash fare:** one tap per passenger, amount presets for common fares, undo",
+    "**Request mobile money:** amount, shows a pay code or QR for the passenger, payment confirmed state",
+    "**Today:** trips, fares (cash vs mobile money), hours on shift",
+    "**Settings:** vehicle assigned, language, help",
+    "Design rules: tap targets 48 px or bigger, high contrast for sunlight, works for low literacy (icons plus short words)"
+   ],
+   "done": [
+    "Figma file shared with view access, linked in the issue",
+    "Every screen listed above, at 360 px mobile width",
+    "Empty, loading and error states for each screen",
+    "Components and colour/type styles set up so developers can build from it",
+    "Short note in the issue explaining the main design decisions"
+   ],
+   "out": "Owner dashboard and passenger app (separate tasks). Code.",
+   "skills": "UI/UX design, Figma",
+   "needs": "",
+   "status": "open"
+  },
+  {
+   "id": "ts-15",
+   "project": "Minibus app",
+   "repo": "trans_sport",
+   "issue": 15,
+   "title": "Figma: design the owner dashboard",
+   "type": "Design",
+   "paid": true,
+   "reward": 20,
+   "deliverable": "A complete Figma design for the owner dashboard, phone and laptop.",
+   "hours": "8–12",
+   "level": "Intermediate",
+   "why": "Owners are the paying customers. If the dashboard shows them money they were losing, they pay.",
+   "must": [
+    "**Fleet overview:** today's takings, vehicles active now, top and bottom vehicle",
+    "**Live map:** each vehicle with last-seen time; stale vehicles greyed",
+    "**Vehicle detail:** today's trips and fares, cash vs mobile money, hours on road, driver",
+    "**Drivers:** list with today's takings and hours per driver",
+    "**Earnings history:** 7 and 30 days, per vehicle",
+    "**Billing:** plan, price per vehicle, next payment (this is how we earn)",
+    "Phone (360 px) and laptop (1280 px) layouts"
+   ],
+   "done": [
+    "Figma file shared with view access, linked in the issue",
+    "Every screen listed above, at 360 px mobile width",
+    "Empty, loading and error states for each screen",
+    "Components and colour/type styles set up so developers can build from it",
+    "Short note in the issue explaining the main design decisions"
+   ],
+   "out": "Driver and passenger apps. Code.",
+   "skills": "UI/UX design, Figma, dashboards",
+   "needs": "",
+   "status": "open"
+  },
+  {
+   "id": "ts-23",
+   "project": "Minibus app",
+   "repo": "trans_sport",
+   "issue": 23,
+   "title": "Implement the driver app UI from the Figma",
+   "type": "Code",
+   "paid": true,
+   "reward": 20,
+   "deliverable": "The driver views in `web/` rebuilt to match the Figma design, still running on demo data.",
+   "hours": "8–12",
+   "level": "Intermediate",
+   "why": "Turns the design into the app drivers will actually use in the pilot.",
+   "must": [
+    "Every screen from the driver Figma, matching layout, spacing, colours and type",
+    "Design tokens as CSS variables in `web/styles.css`",
+    "Works at 360 px width and on a low-cost Android phone",
+    "Demo mode (no `apiUrl`) keeps working"
+   ],
+   "done": [
+    "All driver screens match the Figma",
+    "Screenshots of every screen in the pull request",
+    "No console errors",
+    "Lighthouse accessibility score 90+"
+   ],
+   "out": "Connecting to the backend (separate task).",
+   "skills": "HTML, CSS, JavaScript",
+   "needs": "Figma: design the driver app",
+   "status": "open"
+  },
+  {
+   "id": "ts-24",
+   "project": "Minibus app",
+   "repo": "trans_sport",
+   "issue": 24,
+   "title": "Implement the owner dashboard UI from the Figma",
+   "type": "Code",
+   "paid": true,
+   "reward": 20,
+   "deliverable": "The owner views in `web/` rebuilt to match the Figma, on demo data.",
+   "hours": "8–12",
+   "level": "Intermediate",
+   "why": "This is the screen owners pay for.",
+   "must": [
+    "Every owner screen from the Figma, phone and laptop layouts",
+    "Uses the shared design tokens",
+    "Demo mode keeps working"
+   ],
+   "done": [
+    "All owner screens match the Figma",
+    "Screenshots in the pull request",
+    "No console errors"
+   ],
+   "out": "Backend connection (separate task).",
+   "skills": "HTML, CSS, JavaScript",
+   "needs": "Figma: design the owner dashboard",
+   "status": "open"
+  },
+  {
+   "id": "ts-26",
+   "project": "Minibus app",
+   "repo": "trans_sport",
+   "issue": 26,
+   "title": "Sales kit: owner pitch and pricing page",
+   "type": "Research",
+   "paid": true,
+   "reward": 20,
+   "deliverable": "Everything needed to sign the first paying owner group.",
+   "hours": "6–10",
+   "level": "Beginner–intermediate",
+   "why": "We only work on projects that earn. This is the shortest path to the first payment.",
+   "must": [
+    "A 6–8 slide pitch for owner groups: the problem in their words, the dashboard, price per vehicle, pilot offer",
+    "A one-page pricing page in `web/pricing.html` with a 'Start a pilot' contact form (Formspree or similar, no keys in the repo)",
+    "A one-paragraph WhatsApp message owners can forward to each other"
+   ],
+   "done": [
+    "Pitch deck (PDF) linked in the pull request",
+    "Pricing page live in the web app",
+    "Message text in `docs/sales/`"
+   ],
+   "out": "Ads, paid marketing.",
+   "skills": "Sales, writing, simple design",
+   "needs": "Market research (for the price)",
+   "status": "open"
+  },
+  {
+   "id": "ops-2",
+   "project": "ADT Work & community",
+   "repo": "adt-community.github.io",
+   "issue": 2,
+   "title": "Launch kit: posts, 60-second video and 20 communities",
+   "type": "Operations",
+   "paid": true,
+   "reward": 20,
+   "deliverable": "Everything needed to announce ADT Community and ADT Work.",
+   "hours": "8–12",
+   "level": "Beginner",
+   "why": "People can't join what they've never heard of.",
+   "must": [
+    "X thread (5–7 posts), LinkedIn post and a WhatsApp message, leading with paid tasks and real products",
+    "A 60-second captioned demo video of the live apps and the task board",
+    "20 developer and designer communities across 5+ countries, with link, size and how to post, in `docs/launch/communities.csv`"
+   ],
+   "done": [
+    "All three parts in `docs/launch/`",
+    "Video under 60 s, readable on mute"
+   ],
+   "out": "Paid ads, posting.",
+   "skills": "Copywriting, video editing, research",
+   "needs": "",
+   "status": "open"
+  },
+  {
+   "id": "ops-5",
+   "project": "ADT Work & community",
+   "repo": "adt-community.github.io",
+   "issue": 5,
+   "title": "Community set-up: Discord and weekly updates",
+   "type": "Operations",
+   "paid": true,
+   "reward": 20,
+   "deliverable": "A Discord server and a weekly update habit.",
+   "hours": "6–10",
+   "level": "Beginner",
+   "why": "Momentum is visible: people join communities that ship every week.",
+   "must": [
+    "Discord channels: welcome, announcements, how-we-pay, one per project, ideas, help; rules from CODE_OF_CONDUCT.md",
+    "A bot posting new tasks to a channel",
+    "Weekly update template (shipped, paid, new tasks, next) and the first update"
+   ],
+   "done": [
+    "Server live with bounty feed",
+    "`docs/discord.md` and `docs/updates/` written"
+   ],
+   "out": "Long-term moderation.",
+   "skills": "Community management",
+   "needs": "",
+   "status": "open"
+  },
+  {
+   "id": "ops-7",
+   "project": "ADT Work & community",
+   "repo": "adt-community.github.io",
+   "issue": 7,
+   "title": "Payout operations: platform, private form and process",
+   "type": "Operations",
+   "paid": true,
+   "reward": 20,
+   "deliverable": "A working way to pay contributors weekly from 6 January 2027.",
+   "hours": "6–10",
+   "level": "Beginner–intermediate",
+   "why": "Paying people on time, every week, is what keeps trust.",
+   "must": [
+    "Compare payout platforms for $20 transfers to mobile money and banks in Nigeria, Ghana, Kenya and elsewhere (fees, speed, countries)",
+    "A private payout-details form only maintainers can see",
+    "`docs/payouts.md`: weekly steps, approvals, records, what to do when a payment fails"
+   ],
+   "done": [
+    "Platform recommendation with fees",
+    "Form ready (link shared privately)",
+    "Process documented"
+   ],
+   "out": "Making payments.",
+   "skills": "Operations, research",
+   "needs": "",
+   "status": "open"
+  },
+  {
+   "id": "ops-9",
+   "project": "ADT Work & community",
+   "repo": "adt-community.github.io",
+   "issue": 9,
+   "title": "Figma: design ADT Work, the task platform",
+   "type": "Design",
+   "paid": true,
+   "reward": 20,
+   "deliverable": "A complete Figma design for ADT Work v2: the platform where African talent picks up paid tasks and companies post them.",
+   "hours": "12–16",
+   "level": "Intermediate",
+   "why": "ADT Work is our fastest path to revenue: companies pay a fee on every task they post.",
+   "must": [
+    "**Task board:** filters by skill, pay, level, time; task cards",
+    "**Task page:** deliverable, must include, done when, claim button, status",
+    "**Talent profile:** skills, completed tasks, ratings, earnings (private), portfolio links",
+    "**Sign up without GitHub:** phone or email, skills, payout details collected privately",
+    "**For companies:** post a task, set price, review and approve work, pay",
+    "**Payouts:** weekly earnings and history"
+   ],
+   "done": [
+    "Figma file shared with view access, linked in the issue",
+    "Every screen listed above, at 360 px mobile width",
+    "Empty, loading and error states for each screen",
+    "Components and colour/type styles set up so developers can build from it",
+    "Short note in the issue explaining the main design decisions"
+   ],
+   "out": "Code.",
+   "skills": "UI/UX design, Figma, marketplaces",
+   "needs": "",
+   "status": "open"
+  },
+  {
+   "id": "ops-12",
+   "project": "ADT Work & community",
+   "repo": "adt-community.github.io",
+   "issue": 12,
+   "title": "Partner sales kit: getting companies to post tasks",
+   "type": "Operations",
+   "paid": true,
+   "reward": 20,
+   "deliverable": "A one-pager, pricing and outreach list to sign the first paying company on ADT Work.",
+   "hours": "8–12",
+   "level": "Beginner–intermediate",
+   "why": "Profit is goal number one. The first company paying to post tasks proves ADT Work.",
+   "must": [
+    "A one-page pitch: what companies get (vetted African talent, fixed-price tasks, weekly delivery)",
+    "Pricing: platform fee per task (e.g. 15–20%) and a pilot offer",
+    "A list of 30 target companies (startups, agencies, NGOs) with contact route",
+    "A partner page section on `work.html`"
+   ],
+   "done": [
+    "One-pager PDF",
+    "Pricing agreed in the issue",
+    "30-company list in `docs/sales/`",
+    "Partner section live"
+   ],
+   "out": "Ads.",
+   "skills": "Sales, writing, research",
+   "needs": "",
+   "status": "open"
+  },
+  {
+   "id": "la-2",
+   "project": "Local-language AI",
+   "repo": "locallity_ai",
+   "issue": 2,
+   "title": "Implement the app UI from the Figma and connect it to the core API",
+   "type": "Code",
+   "paid": true,
+   "reward": 20,
+   "deliverable": "The `web/` app rebuilt to the Figma and talking to the real API.",
+   "hours": "10–14",
+   "level": "Intermediate",
+   "why": "Turns the demo into the product people will pilot.",
+   "must": [
+    "Every screen from the Figma, with design tokens in `web/styles.css`",
+    "When `apiUrl` is set, send the conversation to `POST /chat`; thinking state, friendly errors, 20 s timeout, sources shown",
+    "Works on a throttled 3G connection and a low-cost Android phone",
+    "Demo mode keeps working"
+   ],
+   "done": [
+    "All screens match the Figma",
+    "Real replies with sources shown",
+    "Screenshots or a screen recording in the pull request"
+   ],
+   "out": "Speech model changes.",
+   "skills": "HTML, CSS, JavaScript",
+   "needs": "Figma: design the voice assistant app; Core API v1",
+   "status": "open"
+  },
+  {
+   "id": "la-3",
+   "project": "Local-language AI",
+   "repo": "locallity_ai",
+   "issue": 3,
+   "title": "Language research: pick our first language",
+   "type": "Research",
+   "paid": true,
+   "reward": 20,
+   "deliverable": "A report that picks language 1 with evidence.",
+   "hours": "8–12",
+   "level": "Beginner–intermediate",
+   "why": "Our first language decides quality, cost and which customers we can sell to.",
+   "must": [
+    "For 2 candidate languages: open speech and text datasets, speech-to-text and text-to-speech models, sizes, licenses",
+    "Test built-in phone speech recognition and voices for those languages on 2+ Android phones",
+    "Translate 30 farming sentences with 2 options and have a native speaker score them 1–5",
+    "Recommend language 1 and the best way to handle it (direct or via translation)"
+   ],
+   "done": [
+    "`docs/research/language-choice.md` with all three parts and a clear recommendation"
+   ],
+   "out": "Training models.",
+   "skills": "Research, native speaker of an African language",
+   "needs": "",
+   "status": "open"
+  },
+  {
+   "id": "la-4",
+   "project": "Local-language AI",
+   "repo": "locallity_ai",
+   "issue": 4,
+   "title": "Core API v1 with a safety prompt",
+   "type": "Code",
+   "paid": true,
+   "reward": 20,
+   "deliverable": "A working `POST /chat` API in `api/` that answers safely in the user's language.",
+   "hours": "8–12",
+   "level": "Intermediate",
+   "why": "Everything (app, WhatsApp, paying API customers) runs on this core.",
+   "must": [
+    "FastAPI app; `POST /chat` `{ lang, messages } -> { reply, sources }`, matching `web/config.js`",
+    "One function that calls a hosted LLM, key from an environment variable",
+    "System prompt: reply in the user's language, short, say 'I don't know' when unsure, refer health questions to a local professional",
+    "20 safety test cases (10 to answer, 10 to refuse or defer) recorded in `api/tests/safety_cases.md`",
+    "Tests with the LLM mocked, run instructions"
+   ],
+   "done": [
+    "Endpoint matches the contract",
+    "No keys in the repo",
+    "Tests pass without a key",
+    "Safety cases behave as recorded"
+   ],
+   "out": "Knowledge base, deployment.",
+   "skills": "Python, LLM APIs",
+   "needs": "",
+   "status": "open"
+  },
+  {
+   "id": "la-7",
+   "project": "Local-language AI",
+   "repo": "locallity_ai",
+   "issue": 7,
+   "title": "Knowledge base: trusted sources and grounded answers",
+   "type": "Code",
+   "paid": true,
+   "reward": 20,
+   "deliverable": "The assistant answers from trusted farming and health sources, with citations.",
+   "hours": "10–14",
+   "level": "Intermediate",
+   "why": "Wrong advice hurts people and kills trust. Grounded answers are what make this sellable.",
+   "must": [
+    "20+ openly licensed farming guides relevant to West or East Africa listed in `kb/sources.csv` (title, url, publisher, license, topic, country)",
+    "Ingest: split into chunks, embed, store",
+    "`search(question, k=5)` returning passages with source links",
+    "`/chat` uses the top passages and returns their sources",
+    "10 test questions with retrieval results recorded"
+   ],
+   "done": [
+    "Sources and licenses listed",
+    "Grounded replies cite sources",
+    "Tests with mocked search pass"
+   ],
+   "out": "Health sources beyond basics, UI.",
+   "skills": "Python, embeddings/RAG",
+   "needs": "Core API v1",
+   "status": "open"
+  },
+  {
+   "id": "la-14",
+   "project": "Local-language AI",
+   "repo": "locallity_ai",
+   "issue": 14,
+   "title": "Figma: design the voice assistant app",
+   "type": "Design",
+   "paid": true,
+   "reward": 20,
+   "deliverable": "A complete Figma design for the voice-first assistant.",
+   "hours": "8–12",
+   "level": "Intermediate",
+   "why": "Many users have never used a voice assistant and may not read well. The first minute decides if they come back.",
+   "must": [
+    "**First launch:** choose language, a 2-screen intro that is spoken aloud",
+    "**Talk:** big mic button, orb states (listening, thinking, speaking), live caption, interrupt",
+    "**Answer:** reply text with source shown ('From: Ministry of Agriculture guide'), replay, thumbs up/down",
+    "**Didn't understand / I don't know** states with a helpful next step",
+    "**Typed chat** and **language picker**",
+    "**For businesses:** a simple landing screen for the paid API (how we earn)"
+   ],
+   "done": [
+    "Figma file shared with view access, linked in the issue",
+    "Every screen listed above, at 360 px mobile width",
+    "Empty, loading and error states for each screen",
+    "Components and colour/type styles set up so developers can build from it",
+    "Short note in the issue explaining the main design decisions"
+   ],
+   "out": "Code.",
+   "skills": "UI/UX design, Figma, voice UX",
+   "needs": "",
+   "status": "open"
+  },
+  {
+   "id": "la-28",
+   "project": "Local-language AI",
+   "repo": "locallity_ai",
+   "issue": 28,
+   "title": "Business API: keys, usage metering and docs",
+   "type": "Code",
+   "paid": true,
+   "reward": 20,
+   "deliverable": "A paid API that banks, telcos and agri-businesses can sign up for.",
+   "hours": "10–14",
+   "level": "Intermediate",
+   "why": "This is how the project earns: businesses pay to reach customers in their own language.",
+   "must": [
+    "API keys per customer (create, revoke), sent in a header",
+    "Usage metering per key per month (requests, characters)",
+    "Rate limit per plan",
+    "Public API docs page (OpenAPI) with examples in curl, Python and JavaScript",
+    "A pricing section with 2–3 plans"
+   ],
+   "done": [
+    "Requests without a valid key are refused",
+    "Usage report per key",
+    "Docs page live",
+    "Tests"
+   ],
+   "out": "Billing and payments collection.",
+   "skills": "Python, API design",
+   "needs": "Core API v1",
+   "status": "open"
+  },
+  {
+   "id": "qt-2",
+   "project": "Quant trading lab",
+   "repo": "trader",
+   "issue": 2,
+   "title": "Market data collectors: NGX and NSE",
+   "type": "Code",
+   "paid": true,
+   "reward": 20,
+   "deliverable": "Daily price collectors for Nigeria and Kenya in the repo's CSV format.",
+   "hours": "10–14",
+   "level": "Intermediate",
+   "why": "Clean African market data is the product we sell.",
+   "must": [
+    "`collectors/ngx.py` and `collectors/nse.py`, from sources whose terms allow it, source and terms recorded in each file",
+    "Output `date,ticker,close,volume`",
+    "Run `quality.check()` on the output",
+    "Tests on saved sample pages, no network"
+   ],
+   "done": [
+    "Both collectors produce valid CSV",
+    "Quality report clean or explained",
+    "Tests pass offline"
+   ],
+   "out": "Corporate actions.",
+   "skills": "Python, scraping",
+   "needs": "",
+   "status": "open"
+  },
+  {
+   "id": "qt-11",
+   "project": "Quant trading lab",
+   "repo": "trader",
+   "issue": 11,
+   "title": "Market data API v1 with keys",
+   "type": "Code",
+   "paid": true,
+   "reward": 20,
+   "deliverable": "A paid API serving clean African price data.",
+   "hours": "10–14",
+   "level": "Intermediate",
+   "why": "This is how the project earns: brokers, fintechs and researchers pay for data.",
+   "must": [
+    "FastAPI: `GET /prices?exchange=&ticker=&from=&to=` and `GET /tickers?exchange=`",
+    "API keys with per-key usage counting",
+    "OpenAPI docs page with examples",
+    "Loads data from the collectors' CSVs"
+   ],
+   "done": [
+    "Endpoints tested",
+    "Invalid keys refused",
+    "Docs page"
+   ],
+   "out": "Billing.",
+   "skills": "Python, API design",
+   "needs": "Market data collectors",
+   "status": "open"
+  },
+  {
+   "id": "ag-6",
+   "project": "ADT agent",
+   "repo": "ADT_agent",
+   "issue": 6,
+   "title": "Payout ledger: what's owed, and marking it paid",
+   "type": "Code",
+   "paid": true,
+   "reward": 20,
+   "deliverable": "A weekly ledger of who is owed what, with a human approval step.",
+   "hours": "8–12",
+   "level": "Intermediate",
+   "why": "Weekly payouts start on 6 January 2027. Nobody should be missed or paid twice.",
+   "must": [
+    "Find merged PRs that closed issues with a `bounty:$` label, across all repos",
+    "Ledger: week, repo, issue, contributor, amount, status (owed/paid)",
+    "A maintainer adds a `paid` label to mark it paid",
+    "Weekly summary every Monday of what to pay on Wednesday"
+   ],
+   "done": [
+    "Ledger correct for sample data",
+    "Paid items never listed as owed again",
+    "Tests"
+   ],
+   "out": "Sending money.",
+   "skills": "Python, GitHub API",
+   "needs": "",
+   "status": "open"
+  },
+  {
+   "id": "cf-3",
+   "project": "Creator social app",
+   "repo": "content_feed",
+   "issue": 3,
+   "title": "Launch research: video costs, country and niche",
+   "type": "Research",
+   "paid": true,
+   "reward": 20,
+   "deliverable": "A report that sets our launch country, niche and video budget.",
+   "hours": "6–10",
+   "level": "Beginner",
+   "why": "This project earns slowly; we only push it if the numbers work.",
+   "must": [
+    "Compare 3+ video hosting options and cost per 1,000 views at 480p",
+    "Recommend a launch country and niche with reasons",
+    "Estimate tips needed per month to cover hosting"
+   ],
+   "done": [
+    "`docs/research/launch.md` with costs, recommendation and break-even estimate"
+   ],
+   "out": "Code.",
+   "skills": "Research",
+   "needs": "",
+   "status": "open"
+  },
+  {
+   "id": "cf-4",
+   "project": "Creator social app",
+   "repo": "content_feed",
+   "issue": 4,
+   "title": "Backend v1: accounts, profiles and follows",
+   "type": "Code",
+   "paid": true,
+   "reward": 20,
+   "deliverable": "A working backend in `backend/` for sign-in, creator profiles and follows.",
+   "hours": "10–14",
+   "level": "Intermediate",
+   "why": "Every other feature builds on accounts.",
+   "must": [
+    "PostgreSQL schema: users, creators, posts, follows, tips, payouts (money in minor units, fee split stored per tip)",
+    "Phone sign-in with a 6-digit code (logged to console for now), 5-minute expiry, 5 attempts",
+    "`GET /creators/{handle}`, `PUT /me/profile`, `POST/DELETE /follow/{handle}`",
+    "Tests and run instructions"
+   ],
+   "done": [
+    "All endpoints tested",
+    "Unique handles enforced",
+    "Runs locally with one command"
+   ],
+   "out": "Video, payments.",
+   "skills": "Python or Node, SQL",
+   "needs": "",
+   "status": "open"
+  },
+  {
+   "id": "cf-10",
+   "project": "Creator social app",
+   "repo": "content_feed",
+   "issue": 10,
+   "title": "Figma: design the creator app",
+   "type": "Design",
+   "paid": true,
+   "reward": 20,
+   "deliverable": "A complete Figma design for the creator social app.",
+   "hours": "10–14",
+   "level": "Intermediate",
+   "why": "Creators join for money. The path from sign-up to first payout must feel short and rewarding.",
+   "must": [
+    "**Sign up** with phone and code; **creator profile** set-up",
+    "**Feed:** full-screen swipe video, like, comment, gift, share, follow",
+    "**Post:** record or pick video (60 s, 50 MB), caption, posting progress",
+    "**Gifts and tips sheet:** prices, what the creator receives, mobile money payment",
+    "**Earnings:** balance, this week's tips, supporters, cash out to mobile money",
+    "**Report** flow and a moderator review screen"
+   ],
+   "done": [
+    "Figma file shared with view access, linked in the issue",
+    "Every screen listed above, at 360 px mobile width",
+    "Empty, loading and error states for each screen",
+    "Components and colour/type styles set up so developers can build from it",
+    "Short note in the issue explaining the main design decisions"
+   ],
+   "out": "Code.",
+   "skills": "UI/UX design, Figma",
+   "needs": "",
+   "status": "open"
+  },
+  {
+   "id": "ts-2",
+   "project": "Minibus app",
+   "repo": "trans_sport",
+   "issue": 2,
+   "title": "Implement the passenger app UI from the Figma",
+   "type": "Code",
+   "paid": false,
+   "reward": 0,
+   "deliverable": "The passenger (Ride) views in `web/` rebuilt to match the Figma.",
+   "hours": "6–10",
+   "level": "Intermediate",
+   "why": "Makes the passenger side ready for the beta.",
+   "must": [
+    "Every passenger screen from the Figma",
+    "Shared design tokens",
+    "Demo mode keeps working"
+   ],
+   "done": [
+    "All passenger screens match the Figma",
+    "Screenshots in the pull request"
+   ],
+   "out": "Backend connection.",
+   "skills": "HTML, CSS, JavaScript",
+   "needs": "Figma: design the passenger app",
+   "status": "open"
+  },
+  {
+   "id": "ts-17",
+   "project": "Minibus app",
+   "repo": "trans_sport",
+   "issue": 17,
+   "title": "Field test: battery and data use on low-cost phones",
+   "type": "Research",
+   "paid": false,
+   "reward": 0,
+   "deliverable": "Real numbers for battery and data used by a driver's shift.",
+   "hours": "3–5",
+   "level": "Beginner",
+   "why": "If tracking drains batteries or data, drivers switch it off.",
+   "must": [
+    "Run a 2-hour shift on a phone under $150, screen on and off",
+    "Record battery % and mobile data used, phone model and Android version"
+   ],
+   "done": [
+    "`docs/research/battery-test.md` with numbers and one recommendation"
+   ],
+   "out": "Code.",
+   "skills": "Testing, Android phone",
+   "needs": "",
+   "status": "open"
+  },
+  {
+   "id": "ts-25",
+   "project": "Minibus app",
+   "repo": "trans_sport",
+   "issue": 25,
+   "title": "Figma: design the passenger app",
+   "type": "Design",
+   "paid": false,
+   "reward": 0,
+   "deliverable": "A complete Figma design for the passenger app.",
+   "hours": "6–10",
+   "level": "Intermediate",
+   "why": "Passengers bring demand later; they come after owners and drivers.",
+   "must": [
+    "**Map:** minibuses near me on my route, with arrival time, fare and free seats",
+    "**Bus detail:** route, next stops, fare, pay by mobile money",
+    "**Share trip** with a friend for safety",
+    "**Pay:** mobile money flow and receipt"
+   ],
+   "done": [
+    "Figma file shared with view access, linked in the issue",
+    "Every screen listed above, at 360 px mobile width",
+    "Empty, loading and error states for each screen",
+    "Components and colour/type styles set up so developers can build from it",
+    "Short note in the issue explaining the main design decisions"
+   ],
+   "out": "Code.",
+   "skills": "UI/UX design, Figma",
+   "needs": "",
+   "status": "open"
+  },
+  {
+   "id": "ops-10",
+   "project": "ADT Work & community",
+   "repo": "adt-community.github.io",
+   "issue": 10,
+   "title": "Figma: ADT brand and website redesign",
+   "type": "Design",
+   "paid": false,
+   "reward": 0,
+   "deliverable": "A brand (logo, colours, type) and a redesigned homepage, propose page and work page.",
+   "hours": "10–14",
+   "level": "Intermediate",
+   "why": "The site is still a placeholder. A strong brand earns trust with contributors and partners.",
+   "must": [
+    "Logo and wordmark, colour palette, type scale",
+    "Homepage, ADT Work page and propose page at mobile and desktop widths"
+   ],
+   "done": [
+    "Figma file shared with view access, linked in the issue",
+    "Every screen listed above, at 360 px mobile width",
+    "Empty, loading and error states for each screen",
+    "Components and colour/type styles set up so developers can build from it",
+    "Short note in the issue explaining the main design decisions"
+   ],
+   "out": "Code.",
+   "skills": "Brand and web design, Figma",
+   "needs": "",
+   "status": "open"
+  },
+  {
+   "id": "ops-11",
+   "project": "ADT Work & community",
+   "repo": "adt-community.github.io",
+   "issue": 11,
+   "title": "Implement the website redesign from the Figma",
+   "type": "Operations",
+   "paid": false,
+   "reward": 0,
+   "deliverable": "The website rebuilt to match the new brand.",
+   "hours": "8–12",
+   "level": "Beginner–intermediate",
+   "why": "First impressions decide who joins.",
+   "must": [
+    "Every page from the Figma",
+    "Keep the task board and propose form working",
+    "Fast on mobile data"
+   ],
+   "done": [
+    "Pages match the Figma",
+    "Lighthouse 90+ on mobile"
+   ],
+   "out": "New features.",
+   "skills": "HTML, CSS",
+   "needs": "Figma: ADT brand and website redesign",
+   "status": "open"
+  },
+  {
+   "id": "la-9",
+   "project": "Local-language AI",
+   "repo": "locallity_ai",
+   "issue": 9,
+   "title": "Evaluation: 100 farmer questions and a scoring script",
+   "type": "Research",
+   "paid": false,
+   "reward": 0,
+   "deliverable": "A benchmark that scores every version of the assistant.",
+   "hours": "10–14",
+   "level": "Beginner–intermediate",
+   "why": "We can't improve, or sell, what we can't measure.",
+   "must": [
+    "100 real farmer questions in language 1 with English translations and short expert-checked answers, in `eval/`",
+    "`python eval/run.py --api URL` scores replies 0/1 against a rubric and prints the overall %",
+    "Results saved with the date"
+   ],
+   "done": [
+    "100 questions in valid JSONL",
+    "Script runs end to end",
+    "First score recorded"
+   ],
+   "out": "Improving the answers.",
+   "skills": "Native speaker, farming knowledge, Python",
+   "needs": "Language research",
+   "status": "open"
+  },
+  {
+   "id": "la-29",
+   "project": "Local-language AI",
+   "repo": "locallity_ai",
+   "issue": 29,
+   "title": "WhatsApp channel",
+   "type": "Code",
+   "paid": false,
+   "reward": 0,
+   "deliverable": "Users can ask by WhatsApp text or voice note and get answers back.",
+   "hours": "10–14",
+   "level": "Intermediate",
+   "why": "Most of our users already live in WhatsApp; no app install needed.",
+   "must": [
+    "Webhook for the WhatsApp Cloud API that forwards messages to the core API",
+    "Voice notes transcribed, replies sent as text (and audio if TTS is available)",
+    "Keys from environment variables"
+   ],
+   "done": [
+    "Text and voice-note round trip in a test number",
+    "Tests with mocked WhatsApp"
+   ],
+   "out": "SMS, USSD.",
+   "skills": "Python, WhatsApp Cloud API",
+   "needs": "Core API v1",
+   "status": "open"
+  },
+  {
+   "id": "qt-4",
+   "project": "Quant trading lab",
+   "repo": "trader",
+   "issue": 4,
+   "title": "FX rates and real broker fees",
+   "type": "Research",
+   "paid": false,
+   "reward": 0,
+   "deliverable": "Daily FX against USD and real trading costs per exchange.",
+   "hours": "6–10",
+   "level": "Beginner–intermediate",
+   "why": "Currency and fees decide whether a strategy really makes money.",
+   "must": [
+    "Daily NGN, KES, GHS, ZAR, XOF, EGP vs USD from an allowed source, usable as `backtest.run(fx=...)`",
+    "Published broker and exchange fees for JSE, NGX, NSE, GSE, BRVM, with sources, updated in `markets.py`"
+   ],
+   "done": [
+    "FX collector with tests",
+    "markets.py updated with cited sources"
+   ],
+   "out": "Parallel-market rates.",
+   "skills": "Python, research",
+   "needs": "",
+   "status": "open"
+  },
+  {
+   "id": "qt-7",
+   "project": "Quant trading lab",
+   "repo": "trader",
+   "issue": 7,
+   "title": "Figma: design the market data dashboard",
+   "type": "Design",
+   "paid": false,
+   "reward": 0,
+   "deliverable": "A Figma design for the dashboard data buyers will use.",
+   "hours": "6–10",
+   "level": "Intermediate",
+   "why": "Buyers want to see the data before they pay.",
+   "must": [
+    "Pick exchange, search tickers, price and volume chart, data-quality badge, download CSV, API key page, pricing"
+   ],
+   "done": [
+    "Figma file shared with view access, linked in the issue",
+    "Every screen listed above, at 360 px mobile width",
+    "Empty, loading and error states for each screen",
+    "Components and colour/type styles set up so developers can build from it",
+    "Short note in the issue explaining the main design decisions"
+   ],
+   "out": "Code.",
+   "skills": "UI/UX design, Figma, data dashboards",
+   "needs": "",
+   "status": "open"
+  },
+  {
+   "id": "qt-12",
+   "project": "Quant trading lab",
+   "repo": "trader",
+   "issue": 12,
+   "title": "Implement the market data dashboard from the Figma",
+   "type": "Code",
+   "paid": false,
+   "reward": 0,
+   "deliverable": "A web dashboard on top of the data API.",
+   "hours": "10–14",
+   "level": "Intermediate",
+   "why": "Turns the data into something people can see and buy.",
+   "must": [
+    "Every screen from the Figma",
+    "Reads from the data API",
+    "CSV download"
+   ],
+   "done": [
+    "Screens match the Figma",
+    "Works on mobile and laptop"
+   ],
+   "out": "Billing.",
+   "skills": "Frontend, charts",
+   "needs": "Figma: design the market data dashboard; Market data API v1",
+   "status": "open"
+  },
+  {
+   "id": "ag-7",
+   "project": "ADT agent",
+   "repo": "ADT_agent",
+   "issue": 7,
+   "title": "Unassign tasks stalled for 10 days",
+   "type": "Code",
+   "paid": false,
+   "reward": 0,
+   "deliverable": "Tasks quiet for 10 days go back to the pool automatically.",
+   "hours": "2–4",
+   "level": "Beginner–intermediate",
+   "why": "Frees work when someone disappears.",
+   "must": [
+    "After the 5-day check-in, if 5 more days pass with no activity, unassign and comment",
+    "Behind a config flag, off by default"
+   ],
+   "done": [
+    "Works with the existing stalled check",
+    "Tests"
+   ],
+   "out": "Penalties.",
+   "skills": "Python",
+   "needs": "",
+   "status": "open"
+  },
+  {
+   "id": "ag-8",
+   "project": "ADT agent",
+   "repo": "ADT_agent",
+   "issue": 8,
+   "title": "Network status: daily report, status.json and a status page",
+   "type": "Code",
+   "paid": false,
+   "reward": 0,
+   "deliverable": "The network report posted daily and shown publicly on the website.",
+   "hours": "8–12",
+   "level": "Intermediate",
+   "why": "A live status page shows ADT is active, which attracts contributors and partners.",
+   "must": [
+    "Post the daily report as a comment on a pinned 'Network status' issue",
+    "Write `status.json` to the website repo",
+    "`status.html` on the website showing it"
+   ],
+   "done": [
+    "Runs daily",
+    "Status page live",
+    "Tests"
+   ],
+   "out": "Charts.",
+   "skills": "Python, HTML, JavaScript",
+   "needs": "",
+   "status": "open"
+  },
+  {
+   "id": "cf-2",
+   "project": "Creator social app",
+   "repo": "content_feed",
+   "issue": 2,
+   "title": "Implement the app UI from the Figma",
+   "type": "Code",
+   "paid": false,
+   "reward": 0,
+   "deliverable": "The `web/` app rebuilt to match the Figma, on demo data.",
+   "hours": "10–14",
+   "level": "Intermediate",
+   "why": "Makes the app ready for the launch country.",
+   "must": [
+    "Every screen from the Figma, design tokens in `web/styles.css`",
+    "Demo mode keeps working"
+   ],
+   "done": [
+    "All screens match the Figma",
+    "Screenshots in the pull request"
+   ],
+   "out": "Backend connection.",
+   "skills": "HTML, CSS, JavaScript",
+   "needs": "Figma: design the creator app",
+   "status": "open"
+  },
+  {
+   "id": "cf-6",
+   "project": "Creator social app",
+   "repo": "content_feed",
+   "issue": 6,
+   "title": "Video pipeline: upload, compression and playback",
+   "type": "Code",
+   "paid": false,
+   "reward": 0,
+   "deliverable": "Creators can post real videos that play well on low data.",
+   "hours": "10–14",
+   "level": "Intermediate",
+   "why": "Video cost and data use decide whether this can make money.",
+   "must": [
+    "`POST /posts` with video and caption; reject over 50 MB or 60 s",
+    "ffmpeg compression to 480p H.264, about 1 MB per 30 s",
+    "Storage behind one `save_file()` function",
+    "Sizes before and after for the demo videos"
+   ],
+   "done": [
+    "Upload and playback work",
+    "Limits enforced",
+    "Size table in the pull request"
+   ],
+   "out": "Cloud storage set-up.",
+   "skills": "Backend, ffmpeg",
+   "needs": "Backend v1",
+   "status": "open"
+  },
+  {
+   "id": "cf-7",
+   "project": "Creator social app",
+   "repo": "content_feed",
+   "issue": 7,
+   "title": "Feed: following and trending",
+   "type": "Code",
+   "paid": false,
+   "reward": 0,
+   "deliverable": "A real feed of followed creators plus trending posts.",
+   "hours": "6–10",
+   "level": "Intermediate",
+   "why": "New users need something to watch on day one.",
+   "must": [
+    "`GET /feed?cursor=` from followed creators, newest first, 10 per page",
+    "`GET /feed/trending` by likes and tips in the last 48 hours",
+    "Web app reads the feed when `apiUrl` is set"
+   ],
+   "done": [
+    "Pagination tested",
+    "Trending documented in code"
+   ],
+   "out": "Personalised recommendations.",
+   "skills": "Backend, SQL",
+   "needs": "Video pipeline",
+   "status": "open"
+  },
+  {
+   "id": "cf-8",
+   "project": "Creator social app",
+   "repo": "content_feed",
+   "issue": 8,
+   "title": "Tips and payouts in a sandbox",
+   "type": "Code",
+   "paid": false,
+   "reward": 0,
+   "deliverable": "Fans can tip by mobile money in a sandbox, and creators see their balance.",
+   "hours": "10–14",
+   "level": "Intermediate",
+   "why": "Tips are how creators and the platform earn.",
+   "must": [
+    "`POST /tips` with creator amount = gross × (1 − platformFee), correct rounding",
+    "`GET /me/balance`",
+    "One provider's sandbox payment with a verified webhook; credit only on success"
+   ],
+   "done": [
+    "Fee maths tested",
+    "Sandbox tip completes end to end"
+   ],
+   "out": "Live payouts.",
+   "skills": "Backend, payments APIs",
+   "needs": "Backend v1",
+   "status": "open"
+  },
+  {
+   "id": "cf-9",
+   "project": "Creator social app",
+   "repo": "content_feed",
+   "issue": 9,
+   "title": "Moderation: reports, auto-hide and review page",
+   "type": "Code",
+   "paid": false,
+   "reward": 0,
+   "deliverable": "Users can report posts and moderators can act fast.",
+   "hours": "6–10",
+   "level": "Beginner–intermediate",
+   "why": "Safety from day one keeps the app trusted.",
+   "must": [
+    "`POST /posts/{id}/report` with reason",
+    "Auto-hide after 3 reports from different users until reviewed",
+    "Protected moderator page to keep or remove, with a log"
+   ],
+   "done": [
+    "Reports stored",
+    "Auto-hide works",
+    "Review page works"
+   ],
+   "out": "Appeals.",
+   "skills": "Full stack",
+   "needs": "Video pipeline",
+   "status": "open"
+  }
+ ]
+}

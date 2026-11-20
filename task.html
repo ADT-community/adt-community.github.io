@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Task · ADT Work</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  .meta { display: flex; flex-wrap: wrap; gap: 6px 16px; color: var(--muted); font-size: 14px; margin: 8px 0 20px; }
+  .price { font-weight: 700; color: var(--text); }
+  .block { margin: 26px 0; }
+  .block h3 { margin-bottom: 8px; }
+  .block ul { padding-left: 20px; }
+  .block li { margin: 6px 0; }
+  .sticky { position: sticky; bottom: 0; background: var(--bg); padding: 14px 0; border-top: 1px solid var(--line); }
+</style>
+</head>
+<body>
+<nav><div class="wrap">
+  <a class="logo" href="index.html">ADT Community</a>
+  <ul><li><a href="work.html">Work</a></li><li><a href="index.html#projects">Projects</a></li><li><a href="propose.html">Propose</a></li></ul>
+</div></nav>
+
+<section><div class="wrap" id="task"><p>Loading task…</p></div></section>
+
+<footer><div class="wrap">
+  <span>ADT Work is open to people living in Africa. <a href="work.html">All tasks</a></span>
+</div></footer>
+
+<script src="adt.js"></script>
+<script>
+(async () => {
+  const id = new URLSearchParams(location.search).get("id");
+  const box = document.getElementById("task");
+  try {
+    const t = (await adtLoadTasks()).find(x => x.id === id);
+    if (!t) { box.innerHTML = '<p>Task not found. <a href="work.html">See all tasks</a>.</p>'; return; }
+    document.title = `${t.title} · ADT Work`;
+    const list = items => "<ul>" + items.map(i => `<li>${adtFmt(i)}</li>`).join("") + "</ul>";
+    const open = t.status === "open";
+    box.innerHTML = `
+      <p class="kicker">${adtEsc(t.project)} · ${adtEsc(t.type)}</p>
+      <h1 style="font-size:clamp(26px,5vw,40px)">${adtEsc(t.title)}</h1>
+      <div class="meta">
+        <span class="price">${t.paid ? "$" + t.reward : "Next wave"}</span>
+        <span>About ${adtEsc(t.hours)} hours</span><span>${adtEsc(t.level)}</span>
+        <span>${open ? "Open to claim" : "Taken"}</span>
+      </div>
+      <p class="lead">${adtFmt(t.deliverable)}</p>
+      ${t.needs ? `<p class="note"><b>Needs first:</b> ${adtFmt(t.needs)}</p>` : ""}
+      <div class="block"><h3>Why it matters</h3><p>${adtFmt(t.why)}</p></div>
+      <div class="block"><h3>Must include</h3>${list(t.must)}</div>
+      <div class="block"><h3>Done when</h3>${list(t.done)}</div>
+      <div class="block"><h3>Not part of this task</h3><p>${adtFmt(t.out)}</p></div>
+      <div class="block"><h3>Skills</h3><p>${adtFmt(t.skills)}</p></div>
+      <div class="block"><h3>Reward</h3><p>${t.paid
+        ? "$20, paid in the weekly payout run after your work is approved: work approved Monday to Sunday is paid by the following Wednesday to mobile money or bank. Payouts start on Wednesday 6 January 2027; work approved before then is paid in that first run."
+        : "Next wave: this becomes a $20 task as funding comes in. You can take it now for the experience and public credit."}</p>
+        <p class="note">You have 5 days to share progress and 14 days to deliver, or the task goes back to the pool.</p></div>
+      <div class="sticky">${open
+        ? `<a class="btn primary" href="claim.html?id=${encodeURIComponent(t.id)}">Claim this task</a>
+           <a class="btn ghost" href="submit.html?id=${encodeURIComponent(t.id)}">Deliver work</a>`
+        : `<a class="btn ghost" href="work.html">This task is taken. See other tasks</a>`}</div>`;
+  } catch (e) {
+    box.innerHTML = '<p>Couldn\'t load this task right now. Please try again.</p>';
+  }
+})();
+</script>
+</body>
+</html>

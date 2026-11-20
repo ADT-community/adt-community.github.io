@@ -40,14 +40,14 @@
 <header class="hero"><div class="wrap">
   <p class="kicker">ADT Work</p>
   <h1>Short tasks.<br><em>Real products.</em> Paid weekly.</h1>
-  <p class="lead">Design, code, research, writing and operations for products built in Africa. Every task takes 2 to 5 hours, has a clear "done when", and a fixed price agreed before you start.</p>
+  <p class="lead">Design, code, research, writing and operations for products built in Africa, by people living in Africa. Every task is a whole piece of a real product, with a clear "done when" and a fixed price agreed before you start.</p>
   <div class="steps">
     <div class="card"><div class="num">1</div><h3>Pick a task</h3><p>Filter by skill, level and pay.</p></div>
-    <div class="card"><div class="num">2</div><h3>Claim it</h3><p>Comment on the task. Start once you're assigned.</p></div>
-    <div class="card"><div class="num">3</div><h3>Deliver in 5 days</h3><p>A reviewer checks it against "done when".</p></div>
+    <div class="card"><div class="num">2</div><h3>Claim it</h3><p>On this site, with your African phone number. Start once you're assigned.</p></div>
+    <div class="card"><div class="num">3</div><h3>Deliver in 14 days</h3><p>Send your work here. A reviewer checks it against "done when".</p></div>
     <div class="card"><div class="num">4</div><h3>Get paid weekly</h3><p>Approved Mon–Sun, paid by Wednesday to mobile money or bank.</p></div>
   </div>
-  <p class="note">Payouts start on Wednesday 6 January 2027. Work approved before then is paid in that first run. Claiming a task needs a free GitHub account.</p>
+  <p class="note">Payouts start on Wednesday 6 January 2027. Work approved before then is paid in that first run. ADT Work is open only to people living in Africa.</p>
 </div></header>
 
 <section id="tasks"><div class="wrap">
@@ -61,7 +61,7 @@
   <p class="kicker">Have work that needs doing?</p>
   <h2>Post tasks on ADT Work.</h2>
   <p class="lead">Startups and teams will be able to post paid tasks here and reach talent across Africa. Get in touch to be an early partner.</p>
-  <div class="btns"><a class="btn primary" href="https://github.com/ADT-community/adt-community.github.io/issues/new?title=%5BPartner%5D%20&labels=partner">Become a partner</a></div>
+  <div class="btns"><a class="btn primary" href="partner.html">Become a partner</a></div>
 </div></section>
 
 <footer><div class="wrap">
@@ -69,74 +69,16 @@
   <a href="https://github.com/ADT-community">github.com/ADT-community</a>
 </div></footer>
 
+<script src="adt.js"></script>
 <script>
-const REPOS = {
-  "trans_sport": "Minibus app",
-  "locallity_ai": "Local-language AI",
-  "content_feed": "Creator social app",
-  "ADT_agent": "ADT agent",
-  "trader": "Quant trading lab",
-  "adt-community.github.io": "ADT Community"
-};
 const FILTERS = {
   type: ["All", "Design", "Code", "Research", "Operations"],
-  pay: ["All", "Paid $20", "Next wave"],
-  level: ["All", "Beginner"],
+  pay: ["All", "Paid", "Next wave"],
+  project: ["All", "Minibus app", "ADT Work & community", "Local-language AI", "Quant trading lab", "ADT agent", "Creator social app"],
   status: ["Open", "All"]
 };
-const state = { type: "All", pay: "All", level: "All", status: "Open" };
+const state = { type: "All", pay: "All", project: "All", status: "Open" };
 let tasks = [];
-
-function cache(key, value) {
-  try {
-    if (value === undefined) {
-      const c = JSON.parse(sessionStorage.getItem(key) || "null");
-      return c && Date.now() - c.t < 10 * 60 * 1000 ? c.v : null;
-    }
-    sessionStorage.setItem(key, JSON.stringify({ t: Date.now(), v: value }));
-  } catch (e) { return null; }
-}
-
-function field(body, name) {
-  const m = (body || "").match(new RegExp("\\*\\*" + name + ":\\*\\*\\s*([^·\\n]+)"));
-  return m ? m[1].trim() : "";
-}
-
-function toTask(repo, i) {
-  const labels = i.labels.map(l => l.name);
-  const type = repo === "adt-community.github.io" ? "Operations"
-    : labels.includes("design") ? "Design"
-    : labels.includes("research") ? "Research" : "Code";
-  const priced = labels.find(l => /^bounty:\$\d+/.test(l));
-  const level = field(i.body, "Level");
-  return {
-    title: i.title, url: i.html_url, project: REPOS[repo], type,
-    pay: priced ? priced.replace("bounty:", "") : "Next wave",
-    paid: !!priced, hours: field(i.body, "Time"), level,
-    beginner: labels.includes("good first issue") || /^Beginner/.test(level),
-    taken: i.assignees && i.assignees.length > 0,
-    updated: i.updated_at
-  };
-}
-
-async function load() {
-  const hit = cache("adt-work");
-  if (hit) return hit;
-  const all = await Promise.all(Object.keys(REPOS).map(async repo => {
-    try {
-      const res = await fetch(`https://api.github.com/repos/ADT-community/${repo}/issues?state=open&per_page=100`);
-      if (!res.ok) return [];
-      const items = await res.json();
-      return items
-        .filter(i => !i.pull_request)
-        .filter(i => i.labels.some(l => l.name === "bounty" || l.name === "next-wave"))
-        .map(i => toTask(repo, i));
-    } catch (e) { return []; }
-  }));
-  const flat = all.flat().sort((a, b) => (b.paid - a.paid) || (a.taken - b.taken) || b.updated.localeCompare(a.updated));
-  cache("adt-work", flat);
-  return flat;
-}
 
 function renderFilters() {
   const box = document.getElementById("filters");
@@ -157,33 +99,30 @@ function renderFilters() {
   }
 }
 
-function esc(s) { return String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c])); }
-
 function renderList() {
   const shown = tasks.filter(t =>
     (state.type === "All" || t.type === state.type) &&
-    (state.pay === "All" || (state.pay === "Paid $20" ? t.paid : !t.paid)) &&
-    (state.level === "All" || t.beginner) &&
-    (state.status === "All" || !t.taken));
-  const paidOpen = tasks.filter(t => t.paid && !t.taken).length;
+    (state.pay === "All" || (state.pay === "Paid" ? t.paid : !t.paid)) &&
+    (state.project === "All" || t.project === state.project) &&
+    (state.status === "All" || t.status === "open"));
+  const paidOpen = tasks.filter(t => t.paid && t.status === "open").length;
   document.getElementById("count").textContent =
     `${shown.length} task${shown.length === 1 ? "" : "s"} shown · ${paidOpen} paid task${paidOpen === 1 ? "" : "s"} open now`;
   document.getElementById("list").innerHTML = shown.map(t => `
-    <a class="task${t.taken ? " taken" : ""}" href="${t.url}" target="_blank" rel="noopener">
-      <div class="top"><span>${esc(t.project)} · ${t.type}</span><span class="price${t.paid ? "" : " next"}">${esc(t.pay)}</span></div>
-      <h3>${esc(t.title)}</h3>
+    <a class="task${t.status === "open" ? "" : " taken"}" href="task.html?id=${encodeURIComponent(t.id)}">
+      <div class="top"><span>${adtEsc(t.project)} · ${adtEsc(t.type)}</span><span class="price${t.paid ? "" : " next"}">${t.paid ? "$" + t.reward : "Next wave"}</span></div>
+      <h3>${adtEsc(t.title)}</h3>
       <div class="meta">
-        ${t.hours ? `<span>${esc(t.hours)}</span>` : ""}
-        ${t.level ? `<span>${esc(t.level)}</span>` : ""}
-        ${t.taken ? "<span>Taken</span>" : "<span>Open to claim</span>"}
+        <span>About ${adtEsc(t.hours)} hours</span>
+        <span>${adtEsc(t.level)}</span>
+        <span>${t.status === "open" ? "Open to claim" : "Taken"}</span>
       </div>
     </a>`).join("") || `<p>No tasks match these filters.</p>`;
 }
 
 renderFilters();
-load().then(t => { tasks = t; renderList(); }).catch(() => {
-  document.getElementById("count").innerHTML =
-    'Couldn\'t load tasks right now. <a href="https://github.com/ADT-community">See them on GitHub</a>.';
+adtLoadTasks().then(t => { tasks = t; renderList(); }).catch(() => {
+  document.getElementById("count").textContent = "Couldn't load tasks right now. Please try again.";
 });
 </script>
 </body>
