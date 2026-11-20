@@ -416,6 +416,100 @@
    "status": "open"
   },
   {
+   "id": "qt-7",
+   "project": "Investing app",
+   "repo": "trader",
+   "issue": 7,
+   "title": "Figma: design the investing app",
+   "type": "Design",
+   "paid": true,
+   "reward": 20,
+   "deliverable": "A complete Figma design for a Ghana-first investing app for GSE and US stocks, as easy as the best apps in the world.",
+   "hours": "12–16",
+   "level": "Intermediate",
+   "why": "People should be able to go from download to owning their first share in 5 minutes, with mobile money.",
+   "must": [
+    "**Sign up:** phone number and code, then ID check (Ghana Card), with progress saved",
+    "**Wallet:** deposit and withdraw by mobile money (MTN MoMo, Telecel Cash, AirtelTigo Money) and bank; cedi and US dollar balances; exchange rate shown before converting",
+    "**Discover:** search, trending, top movers, themes (Tech giants, Ghana banks, Dividends, Africa growth), GSE and US tabs",
+    "**Stock page:** price chart (1D to 5Y), about the company, key numbers in plain words, news, dividends, compare two stocks",
+    "**Buy and sell:** buy by amount (from ₵20 / $1 with fractional shares) or by shares; market and limit orders; clear fees before confirming; order status",
+    "**Portfolio:** total value, returns, each holding, dividends received, history",
+    "**Grow:** recurring buys (weekly/monthly auto-invest), watchlists, price alerts, referral reward",
+    "**Learn:** short lessons in English and Twi; a practice mode with practice money",
+    "Design rules: big clear numbers, risk warnings where needed, works on low-cost Android phones and slow data"
+   ],
+   "done": [
+    "Figma file shared with view access, linked in your delivery",
+    "Every screen listed above, at 360 px mobile width",
+    "Empty, loading and error states for each screen",
+    "Components and colour/type styles set up so developers can build from it",
+    "Short note explaining the main design decisions"
+   ],
+   "out": "Code. Crypto. Options trading.",
+   "skills": "UI/UX design, Figma, fintech",
+   "needs": "",
+   "status": "open"
+  },
+  {
+   "id": "qt-14",
+   "project": "Investing app",
+   "repo": "trader",
+   "issue": 14,
+   "title": "Research: partners, rules and competitors for a Ghana investing app",
+   "type": "Research",
+   "paid": true,
+   "reward": 20,
+   "deliverable": "A report that tells us exactly how to legally let Ghanaians buy GSE and US stocks, and how to beat the apps already doing it.",
+   "hours": "10–14",
+   "level": "Intermediate",
+   "why": "Ghana's SEC requires every online trading platform to be licensed or registered, and the app can only go live through licensed partners. This decides everything else.",
+   "must": [
+    "**Ghana brokers:** SEC-licensed GSE dealing members that could partner with an app; whether they have an API or order system an app can connect to; fees; contact route",
+    "**US stocks:** US broker-as-a-service providers that serve African apps (e.g. DriveWealth, Alpaca, others): fractional shares, minimums, fees, countries, onboarding",
+    "**Rules:** SEC Ghana online-platform registration steps and costs; Bank of Ghana rules on moving cedis abroad to buy foreign shares; ID (KYC) requirements",
+    "**Competitors teardown:** Bamboo, Chipper Cash, IC Securities, mystocks.africa, and Robinhood as the benchmark: features, fees, sign-up time, app ratings, top complaints",
+    "**Recommendation:** first partner(s) to approach, the fee we can charge, and the 3 things we must do better than Bamboo"
+   ],
+   "done": [
+    "`docs/research/investing-app.md` with all five parts and sources",
+    "A table of at least 5 Ghanaian brokers and 3 US providers"
+   ],
+   "out": "Contacting partners (separate task). Legal advice.",
+   "skills": "Research, finance, regulation",
+   "needs": "",
+   "status": "open"
+  },
+  {
+   "id": "qt-15",
+   "project": "Investing app",
+   "repo": "trader",
+   "issue": 15,
+   "title": "Partner kit: pitch and proposal for brokers",
+   "type": "Research",
+   "paid": true,
+   "reward": 20,
+   "deliverable": "Everything needed to sign the first licensed broker partner.",
+   "hours": "8–12",
+   "level": "Intermediate",
+   "why": "No partner, no app. The partner holds the licence, the money and the shares; we bring the customers and the product.",
+   "must": [
+    "A 8–10 slide pitch for Ghanaian brokers: the problem, our app, our users, how we bring them new clients",
+    "A revenue-share proposal: who earns what on each trade, account and deposit",
+    "A one-page technical summary: how the app would send orders and receive confirmations",
+    "An outreach list of brokers and US providers from the research, with who to contact"
+   ],
+   "done": [
+    "Pitch deck (PDF)",
+    "Revenue-share proposal",
+    "Outreach list in `docs/sales/`"
+   ],
+   "out": "Signing contracts.",
+   "skills": "Sales, finance, writing",
+   "needs": "Research: partners, rules and competitors for a Ghana investing app",
+   "status": "open"
+  },
+  {
    "id": "la-2",
    "project": "Local-language AI",
    "repo": "locallity_ai",
@@ -597,64 +691,6 @@
    "status": "open"
   },
   {
-   "id": "qt-2",
-   "project": "Quant trading lab",
-   "repo": "trader",
-   "issue": 2,
-   "title": "Market data collectors: NGX and NSE",
-   "type": "Code",
-   "paid": true,
-   "reward": 20,
-   "deliverable": "Daily price collectors for Nigeria and Kenya in the repo's CSV format.",
-   "hours": "10–14",
-   "level": "Intermediate",
-   "why": "Clean African market data is the product we sell.",
-   "must": [
-    "`collectors/ngx.py` and `collectors/nse.py`, from sources whose terms allow it, source and terms recorded in each file",
-    "Output `date,ticker,close,volume`",
-    "Run `quality.check()` on the output",
-    "Tests on saved sample pages, no network"
-   ],
-   "done": [
-    "Both collectors produce valid CSV",
-    "Quality report clean or explained",
-    "Tests pass offline"
-   ],
-   "out": "Corporate actions.",
-   "skills": "Python, scraping",
-   "needs": "",
-   "status": "open"
-  },
-  {
-   "id": "qt-11",
-   "project": "Quant trading lab",
-   "repo": "trader",
-   "issue": 11,
-   "title": "Market data API v1 with keys",
-   "type": "Code",
-   "paid": true,
-   "reward": 20,
-   "deliverable": "A paid API serving clean African price data.",
-   "hours": "10–14",
-   "level": "Intermediate",
-   "why": "This is how the project earns: brokers, fintechs and researchers pay for data.",
-   "must": [
-    "FastAPI: `GET /prices?exchange=&ticker=&from=&to=` and `GET /tickers?exchange=`",
-    "API keys with per-key usage counting",
-    "OpenAPI docs page with examples",
-    "Loads data from the collectors' CSVs"
-   ],
-   "done": [
-    "Endpoints tested",
-    "Invalid keys refused",
-    "Docs page"
-   ],
-   "out": "Billing.",
-   "skills": "Python, API design",
-   "needs": "Market data collectors",
-   "status": "open"
-  },
-  {
    "id": "ag-6",
    "project": "ADT agent",
    "repo": "ADT_agent",
@@ -680,32 +716,6 @@
    ],
    "out": "Sending money.",
    "skills": "Python, GitHub API",
-   "needs": "",
-   "status": "open"
-  },
-  {
-   "id": "cf-3",
-   "project": "Creator social app",
-   "repo": "content_feed",
-   "issue": 3,
-   "title": "Launch research: video costs, country and niche",
-   "type": "Research",
-   "paid": true,
-   "reward": 20,
-   "deliverable": "A report that sets our launch country, niche and video budget.",
-   "hours": "6–10",
-   "level": "Beginner",
-   "why": "This project earns slowly; we only push it if the numbers work.",
-   "must": [
-    "Compare 3+ video hosting options and cost per 1,000 views at 480p",
-    "Recommend a launch country and niche with reasons",
-    "Estimate tips needed per month to cover hosting"
-   ],
-   "done": [
-    "`docs/research/launch.md` with costs, recommendation and break-even estimate"
-   ],
-   "out": "Code.",
-   "skills": "Research",
    "needs": "",
    "status": "open"
   },
@@ -911,6 +921,204 @@
    "status": "open"
   },
   {
+   "id": "qt-2",
+   "project": "Investing app",
+   "repo": "trader",
+   "issue": 2,
+   "title": "Price feed: GSE daily prices",
+   "type": "Code",
+   "paid": false,
+   "reward": 0,
+   "deliverable": "Daily prices for every GSE-listed stock, cleaned and ready for the app.",
+   "hours": "6–10",
+   "level": "Intermediate",
+   "why": "The app needs reliable Ghana prices, and clean GSE data is scarce.",
+   "must": [
+    "`collectors/gse.py` from a source whose terms allow it, with the source and terms recorded",
+    "Output `date,ticker,close,volume`; run `quality.check()` on it",
+    "Tests on a saved sample, no network"
+   ],
+   "done": [
+    "Valid CSV for all GSE tickers",
+    "Quality report clean or explained",
+    "Tests pass offline"
+   ],
+   "out": "NGX and NSE (later).",
+   "skills": "Python, scraping",
+   "needs": "",
+   "status": "open"
+  },
+  {
+   "id": "qt-4",
+   "project": "Investing app",
+   "repo": "trader",
+   "issue": 4,
+   "title": "FX rates and real broker fees",
+   "type": "Research",
+   "paid": false,
+   "reward": 0,
+   "deliverable": "Daily FX against USD and real trading costs per exchange.",
+   "hours": "6–10",
+   "level": "Beginner–intermediate",
+   "why": "The app must show users exact fees and exchange rates before they buy.",
+   "must": [
+    "Daily GHS, NGN, KES, ZAR, XOF, EGP vs USD from an allowed source, usable as `backtest.run(fx=...)`",
+    "Published broker and exchange fees for GSE, JSE, NGX, NSE, BRVM, with sources, updated in `markets.py`"
+   ],
+   "done": [
+    "FX collector with tests",
+    "markets.py updated with cited sources"
+   ],
+   "out": "Parallel-market rates.",
+   "skills": "Python, research",
+   "needs": "",
+   "status": "open"
+  },
+  {
+   "id": "qt-11",
+   "project": "Investing app",
+   "repo": "trader",
+   "issue": 11,
+   "title": "Trading backend: accounts, wallet and orders (practice first)",
+   "type": "Code",
+   "paid": false,
+   "reward": 0,
+   "deliverable": "A backend for accounts, wallets, orders and portfolios, built so a licensed broker can be plugged in later.",
+   "hours": "14–20",
+   "level": "Intermediate–advanced",
+   "why": "Done right, switching from practice to real trading is a configuration change, not a rewrite.",
+   "must": [
+    "Accounts, cedi and dollar wallets, ledger of every movement (money in minor units)",
+    "Orders: market and limit, by amount or shares, fractional; order states",
+    "Portfolio and returns calculation",
+    "A `Broker` interface with a practice implementation; real brokers plug in behind it",
+    "Tests"
+   ],
+   "done": [
+    "Ledger always balances (tested)",
+    "Practice broker fills orders at current prices",
+    "Run instructions"
+   ],
+   "out": "Real broker connection, real payments.",
+   "skills": "Python or Node, SQL, finance",
+   "needs": "",
+   "status": "open"
+  },
+  {
+   "id": "qt-12",
+   "project": "Investing app",
+   "repo": "trader",
+   "issue": 12,
+   "title": "Implement the investing app in practice mode",
+   "type": "Code",
+   "paid": false,
+   "reward": 0,
+   "deliverable": "The app built from the Figma, working end to end with practice money and real prices, so we can launch and learn before a partner is signed.",
+   "hours": "14–20",
+   "level": "Intermediate",
+   "why": "A working practice app gets users, feedback and a waitlist we can show partners.",
+   "must": [
+    "Every screen from the Figma as a mobile web app",
+    "Real GSE prices from the price feed; US prices from a free delayed-quote source",
+    "Practice wallet with practice cedis and dollars; buy and sell by amount, fractional shares; portfolio and returns",
+    "Watchlists, price alerts (in-app), recurring practice buys",
+    "A waitlist sign-up for real trading"
+   ],
+   "done": [
+    "Whole flow works on a low-cost Android phone",
+    "Clear 'practice mode' label everywhere",
+    "Screenshots or a screen recording"
+   ],
+   "out": "Real money, real orders, real ID checks.",
+   "skills": "Frontend, JavaScript",
+   "needs": "Figma: design the investing app; Price feed: GSE daily prices",
+   "status": "open"
+  },
+  {
+   "id": "qt-16",
+   "project": "Investing app",
+   "repo": "trader",
+   "issue": 16,
+   "title": "Mobile money deposits and withdrawals",
+   "type": "Code",
+   "paid": false,
+   "reward": 0,
+   "deliverable": "Users fund and withdraw with mobile money, through a licensed payment partner's sandbox.",
+   "hours": "10–14",
+   "level": "Intermediate",
+   "why": "Mobile money is how most Ghanaians move money. Bank-only apps lose them.",
+   "must": [
+    "Integrate one provider's sandbox (e.g. Paystack, Flutterwave or Hubtel) for MoMo deposits and withdrawals",
+    "Webhook with signature checks; credit the wallet only on confirmed payment",
+    "Cedi to dollar conversion with the rate shown first"
+   ],
+   "done": [
+    "Sandbox deposit and withdrawal work end to end",
+    "Ledger updated correctly",
+    "Tests"
+   ],
+   "out": "Live payments.",
+   "skills": "Backend, payments APIs",
+   "needs": "Trading backend: accounts, wallet and orders",
+   "status": "open"
+  },
+  {
+   "id": "qt-17",
+   "project": "Investing app",
+   "repo": "trader",
+   "issue": 17,
+   "title": "Connect a licensed broker: real orders",
+   "type": "Code",
+   "paid": false,
+   "reward": 0,
+   "deliverable": "Real buy and sell orders through our partner broker(s), for GSE and US stocks.",
+   "hours": "14–20",
+   "level": "Advanced",
+   "why": "This is the moment the app starts earning.",
+   "must": [
+    "Implement the partner's API behind the `Broker` interface",
+    "Order placement, status updates, fills, cancellations",
+    "Daily reconciliation against the broker's statements",
+    "ID (KYC) hand-off to the partner"
+   ],
+   "done": [
+    "Orders work in the partner's test environment",
+    "Reconciliation report",
+    "Tests"
+   ],
+   "out": "Choosing the partner.",
+   "skills": "Backend, finance APIs",
+   "needs": "Partner kit; Trading backend",
+   "status": "open"
+  },
+  {
+   "id": "qt-18",
+   "project": "Investing app",
+   "repo": "trader",
+   "issue": 18,
+   "title": "Learn: investing lessons in English and Twi",
+   "type": "Operations",
+   "paid": false,
+   "reward": 0,
+   "deliverable": "Ten short lessons that take a beginner from 'what is a share?' to their first buy.",
+   "hours": "8–12",
+   "level": "Beginner",
+   "why": "Most Ghanaians have never bought a share. Trust and understanding come before trading.",
+   "must": [
+    "10 lessons of 1–2 minutes each, in English and Twi: shares, risk, fees, dividends, US vs GSE stocks, long-term investing, scams to avoid",
+    "A 3-question quiz per lesson",
+    "Plain words, no financial advice"
+   ],
+   "done": [
+    "Lessons in `docs/learn/` in both languages",
+    "Reviewed by a native Twi speaker"
+   ],
+   "out": "Video production.",
+   "skills": "Writing, finance basics, Twi",
+   "needs": "",
+   "status": "open"
+  },
+  {
    "id": "la-9",
    "project": "Local-language AI",
    "repo": "locallity_ai",
@@ -963,87 +1171,6 @@
    "out": "SMS, USSD.",
    "skills": "Python, WhatsApp Cloud API",
    "needs": "Core API v1",
-   "status": "open"
-  },
-  {
-   "id": "qt-4",
-   "project": "Quant trading lab",
-   "repo": "trader",
-   "issue": 4,
-   "title": "FX rates and real broker fees",
-   "type": "Research",
-   "paid": false,
-   "reward": 0,
-   "deliverable": "Daily FX against USD and real trading costs per exchange.",
-   "hours": "6–10",
-   "level": "Beginner–intermediate",
-   "why": "Currency and fees decide whether a strategy really makes money.",
-   "must": [
-    "Daily NGN, KES, GHS, ZAR, XOF, EGP vs USD from an allowed source, usable as `backtest.run(fx=...)`",
-    "Published broker and exchange fees for JSE, NGX, NSE, GSE, BRVM, with sources, updated in `markets.py`"
-   ],
-   "done": [
-    "FX collector with tests",
-    "markets.py updated with cited sources"
-   ],
-   "out": "Parallel-market rates.",
-   "skills": "Python, research",
-   "needs": "",
-   "status": "open"
-  },
-  {
-   "id": "qt-7",
-   "project": "Quant trading lab",
-   "repo": "trader",
-   "issue": 7,
-   "title": "Figma: design the market data dashboard",
-   "type": "Design",
-   "paid": false,
-   "reward": 0,
-   "deliverable": "A Figma design for the dashboard data buyers will use.",
-   "hours": "6–10",
-   "level": "Intermediate",
-   "why": "Buyers want to see the data before they pay.",
-   "must": [
-    "Pick exchange, search tickers, price and volume chart, data-quality badge, download CSV, API key page, pricing"
-   ],
-   "done": [
-    "Figma file shared with view access, linked in the issue",
-    "Every screen listed above, at 360 px mobile width",
-    "Empty, loading and error states for each screen",
-    "Components and colour/type styles set up so developers can build from it",
-    "Short note in the issue explaining the main design decisions"
-   ],
-   "out": "Code.",
-   "skills": "UI/UX design, Figma, data dashboards",
-   "needs": "",
-   "status": "open"
-  },
-  {
-   "id": "qt-12",
-   "project": "Quant trading lab",
-   "repo": "trader",
-   "issue": 12,
-   "title": "Implement the market data dashboard from the Figma",
-   "type": "Code",
-   "paid": false,
-   "reward": 0,
-   "deliverable": "A web dashboard on top of the data API.",
-   "hours": "10–14",
-   "level": "Intermediate",
-   "why": "Turns the data into something people can see and buy.",
-   "must": [
-    "Every screen from the Figma",
-    "Reads from the data API",
-    "CSV download"
-   ],
-   "done": [
-    "Screens match the Figma",
-    "Works on mobile and laptop"
-   ],
-   "out": "Billing.",
-   "skills": "Frontend, charts",
-   "needs": "Figma: design the market data dashboard; Market data API v1",
    "status": "open"
   },
   {
@@ -1124,6 +1251,32 @@
    "out": "Backend connection.",
    "skills": "HTML, CSS, JavaScript",
    "needs": "Figma: design the creator app",
+   "status": "open"
+  },
+  {
+   "id": "cf-3",
+   "project": "Creator social app",
+   "repo": "content_feed",
+   "issue": 3,
+   "title": "Launch research: video costs, country and niche",
+   "type": "Research",
+   "paid": false,
+   "reward": 0,
+   "deliverable": "A report that sets our launch country, niche and video budget.",
+   "hours": "6–10",
+   "level": "Beginner",
+   "why": "This project earns slowly; we only push it if the numbers work.",
+   "must": [
+    "Compare 3+ video hosting options and cost per 1,000 views at 480p",
+    "Recommend a launch country and niche with reasons",
+    "Estimate tips needed per month to cover hosting"
+   ],
+   "done": [
+    "`docs/research/launch.md` with costs, recommendation and break-even estimate"
+   ],
+   "out": "Code.",
+   "skills": "Research",
+   "needs": "",
    "status": "open"
   },
   {
