@@ -1,0 +1,7 @@
+# Runtime state for the Discord new-task feed (not a secret, but machine-local)
+discord_bot/state.json
+discord_bot/.state-*
+
+# Python bytecode
+__pycache__/
+*.py[cod]
