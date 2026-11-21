@@ -1,0 +1,36 @@
+name: Discord new-task feed
+
+on:
+  schedule:
+    - cron: '17 */6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  post-new-tasks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      # State is persisted between runs so a task is posted only once.
+      # First run: use --bootstrap locally (see docs/discord.md).
+      - name: Restore posted-task state
+        uses: actions/cache@v4
+        with:
+          path: discord_bot/state.json
+          key: discord-feed-state-${{ github.run_id }}
+          restore-keys: discord-feed-state-
+
+      - name: Test the feed
+        run: python -m unittest discover -s discord_bot/tests -v
+
+      - name: Post new open tasks
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        run: python discord_bot/post_tasks.py --limit 20

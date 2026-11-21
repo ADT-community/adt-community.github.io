@@ -5,6 +5,8 @@ Open source projects solving African problems, built by developers across the co
 - **Website:** https://adt-community.github.io
 - **Propose a project:** https://adt-community.github.io/propose.html
 - **Discussions:** https://github.com/ADT-community/adt-community.github.io/discussions
+- **Discord:** server set-up, channels and rules in [`docs/discord.md`](docs/discord.md)
+- **Weekly updates:** [`docs/updates/`](docs/updates/) (shipped, paid, new tasks, next)
 
 This repo holds the website, project proposals (as issues) and community docs.
 
