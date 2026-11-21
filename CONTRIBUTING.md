@@ -18,7 +18,9 @@ Pull requests from people who didn't claim the task on ADT Work are welcome as o
 - **$20 per approved paid task.** "Next wave" tasks become paid as funding grows.
 - **Weekly:** work approved Monday to Sunday is paid by the following Wednesday, to an African mobile money or bank account.
 - **First payout run: Wednesday 6 January 2027**, covering everything approved before then.
-- You share payout details once, privately, after your first approved task. **Never** post them in public.
+- You share payout details once, privately, after your first approved task, through the maintainers' [private payout form](payout-form.html). **Never** post them in public.
+
+How payouts work, who approves them and how failures are handled is documented in [docs/payouts.md](docs/payouts.md); the platform comparison and fees are in [docs/payout-platforms.md](docs/payout-platforms.md).
 
 ADT projects don't earn money yet, so $20 is a thank-you. The bigger value is real work on live products, and regular contributors get first say in revenue sharing once projects earn.
 
