@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Payout details · ADT Community</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  form { display: grid; gap: 16px; max-width: 560px; margin-top: 20px; }
+  label { display: grid; gap: 6px; font-weight: 600; font-size: 15px; }
+  label small { font-weight: 400; color: var(--muted); }
+  input, select, textarea { font: inherit; padding: 10px 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); color: var(--text); }
+  .phone { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 8px; }
+  .check { display: flex; gap: 10px; align-items: flex-start; font-weight: 400; }
+  .check input { margin-top: 4px; }
+  .err { color: #b3261e; font-size: 14px; min-height: 1em; }
+  .ok { border: 1px solid var(--line); border-radius: 10px; padding: 16px; }
+  .warn { border: 1px solid var(--line); border-left: 4px solid #b3261e; border-radius: 8px; padding: 12px 14px; font-size: 14px; max-width: 560px; margin-top: 16px; }
+  fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: 16px; }
+  fieldset[hidden] { display: none; }
+  legend { font-weight: 700; font-size: 15px; margin-bottom: 6px; }
+  .methods { display: flex; gap: 18px; font-weight: 400; }
+  .methods label { display: flex; align-items: center; gap: 8px; }
+  .methods input { margin: 0; }
+  .disabled-note { border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; font-size: 14px; max-width: 560px; margin-top: 16px; }
+</style>
+</head>
+<body>
+<nav><div class="wrap">
+  <a class="logo" href="index.html">ADT Community</a>
+  <ul><li><a href="work.html">Work</a></li><li><a href="index.html#paid">Getting paid</a></li></ul>
+</div></nav>
+
+<section><div class="wrap">
+  <p class="kicker">ADT Community · private</p>
+  <h1 style="font-size:clamp(26px,5vw,40px)">Payout details</h1>
+  <p class="lead">Share the details we need to pay you. This page is private: only maintainers can see what you submit. Never post these details in a public issue, pull request or discussion.</p>
+
+  <div class="warn"><b>Never enter</b> a password, PIN, OTP, card number, seed phrase or private key. We will never ask for them. Submitting them here would put your funds at risk.</div>
+
+  <p class="disabled-note" id="disabled" hidden>Payout details submission is not enabled on this deployment. Please contact a maintainer.</p>
+
+  <form id="payout" novalidate>
+    <label>Invite code <small>The private code a maintainer gave you after your first approved task. Needed to update your details too.</small>
+      <input name="invite_code" autocomplete="off" required>
+    </label>
+    <label>Full name
+      <input name="name" autocomplete="name" required>
+    </label>
+    <label>Email <small>For a confirmation that your details were received.</small>
+      <input name="email" type="email" autocomplete="email" required>
+    </label>
+    <label>Phone number <small>African numbers only. We use it to confirm any change to your details.</small>
+      <div class="phone">
+        <select id="code" aria-label="Country code" required></select>
+        <input id="local" inputmode="tel" autocomplete="tel-national" placeholder="e.g. 0801 234 5678" aria-label="Phone number" required>
+      </div>
+    </label>
+    <label>Country you will be paid in
+      <select name="country" id="country" required></select>
+    </label>
+
+    <fieldset>
+      <legend>How should we pay you?</legend>
+      <div class="methods">
+        <label><input type="radio" name="method" value="mobile_money" checked> Mobile money</label>
+        <label><input type="radio" name="method" value="bank"> Bank account</label>
+      </div>
+    </fieldset>
+
+    <fieldset id="momo">
+      <legend>Mobile money</legend>
+      <label>Network
+        <select name="network" id="network">
+          <option value="">Choose a network</option>
+          <option>MTN MoMo</option><option>M-Pesa</option><option>Airtel Money</option>
+          <option>Orange Money</option><option>Wave</option><option>Telecel Cash</option>
+          <option>AirtelTigo Money</option><option>Other</option>
+        </select>
+      </label>
+      <label>Wallet number <small>The phone number registered to the wallet.</small>
+        <input name="wallet" id="wallet" inputmode="tel" autocomplete="tel">
+      </label>
+    </fieldset>
+
+    <fieldset id="bank" hidden>
+      <legend>Bank account</legend>
+      <label>Bank name
+        <input name="bank_name" autocomplete="organization">
+      </label>
+      <label>Account number
+        <input name="account_number" inputmode="numeric">
+      </label>
+      <label>Branch / sort code <small>Optional, if your bank needs it.</small>
+        <input name="branch">
+      </label>
+    </fieldset>
+
+    <label class="check"><input type="checkbox" name="owns_details" value="yes" required>
+      <span>These details are mine and correct. I understand they will only be used to pay my approved ADT tasks, and will never be published.</span></label>
+    <p class="err" id="err" role="alert"></p>
+    <button class="btn primary" type="submit">Save payout details</button>
+  </form>
+  <div id="done" hidden></div>
+</div></section>
+
+<script src="adt.js"></script>
+<script src="payout-config.js"></script>
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const form = $("payout"), err = $("err");
+  const phoneSelect = $("code"), countrySelect = $("country");
+  const momo = $("momo"), bank = $("bank");
+
+  const sorted = [...AFRICAN_CODES].sort((a, b) => a[1].localeCompare(b[1]));
+  adtPhoneSelect(phoneSelect);
+  countrySelect.innerHTML = '<option value="">Choose a country</option>' +
+    sorted.map(([, name]) => `<option value="${adtEsc(name)}">${adtEsc(name)}</option>`).join("");
+
+  function syncMethod() {
+    const method = form.querySelector('input[name="method"]:checked').value;
+    momo.hidden = method !== "mobile_money";
+    bank.hidden = method !== "bank";
+    $("network").required = $("wallet").required = method === "mobile_money";
+    f.bank_name.required = f.account_number.required = method === "bank";
+  }
+  form.querySelectorAll('input[name="method"]').forEach(el => el.addEventListener("change", syncMethod));
+  syncMethod();
+
+  if (!PAYOUT_FORM_ENABLED || !PAYOUT_FORM_ENDPOINT) {
+    $("disabled").hidden = false;
+    form.querySelector("button").disabled = true;
+  }
+
+  form.addEventListener("submit", async ev => {
+    ev.preventDefault();
+    err.textContent = "";
+    if (!PAYOUT_FORM_ENABLED || !PAYOUT_FORM_ENDPOINT) {
+      err.textContent = "Payout details submission is not enabled on this deployment. Please contact a maintainer.";
+      return;
+    }
+    const f = ev.target;
+    const phone = adtValidPhone(phoneSelect.value, $("local").value);
+    if (!f.invite_code.value.trim()) return (err.textContent = "Enter your invite code.");
+    if (!f.name.value.trim()) return (err.textContent = "Enter your full name.");
+    if (!f.email.value.trim()) return (err.textContent = "Enter your email.");
+    if (!phone) return (err.textContent = "Enter an African phone number: pick your country, then your number.");
+    if (!countrySelect.value) return (err.textContent = "Choose the country you will be paid in.");
+    const method = f.querySelector('input[name="method"]:checked').value;
+    if (method === "mobile_money" && (!$("network").value || !f.wallet.value.trim()))
+      return (err.textContent = "Choose your network and enter your wallet number.");
+    if (method === "bank" && (!f.bank_name.value.trim() || !f.account_number.value.trim()))
+      return (err.textContent = "Enter your bank name and account number.");
+    if (!f.owns_details.checked) return (err.textContent = "Please confirm the details are yours.");
+
+    const data = Object.fromEntries(new FormData(f).entries());
+    Object.assign(data, { phone, country: countrySelect.value, page: location.href, submitted_at: new Date().toISOString() });
+    const btn = f.querySelector("button");
+    btn.disabled = true; btn.textContent = "Sending…";
+    try {
+      const res = await fetch(PAYOUT_FORM_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify(data)
+      });
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      f.hidden = true;
+      $("done").hidden = false;
+      $("done").innerHTML = '<div class="ok"><h3>Details received</h3><p>Only maintainers can see them. We will use them solely to pay your approved tasks. Keep your invite code safe — submit this form again if your details change.</p><p><a href="work.html">Back to ADT Work</a></p></div>';
+    } catch (e) {
+      err.textContent = "Couldn't send your details. Check your connection and try again, or contact a maintainer.";
+      btn.disabled = false; btn.textContent = "Save payout details";
+    }
+  });
+})();
+</script>
+</body>
+</html>
