@@ -1,0 +1,112 @@
+{
+  "generated_at": "2026-11-25T20:46:59Z",
+  "totals": {
+    "open": 38,
+    "taken": 5,
+    "done": 5,
+    "tasks": 48,
+    "open_pull_requests": 29,
+    "open_issues": 55,
+    "repos": 6
+  },
+  "projects": [
+    {
+      "name": "ADT Work & community",
+      "repo": "ADT-community/adt-community.github.io",
+      "open": 7,
+      "taken": 0,
+      "done": 0,
+      "total": 7
+    },
+    {
+      "name": "ADT agent",
+      "repo": "ADT-community/ADT_agent",
+      "open": 3,
+      "taken": 0,
+      "done": 0,
+      "total": 3
+    },
+    {
+      "name": "Creator social app",
+      "repo": "ADT-community/content_feed",
+      "open": 8,
+      "taken": 0,
+      "done": 0,
+      "total": 8
+    },
+    {
+      "name": "Investing app",
+      "repo": "ADT-community/trader",
+      "open": 0,
+      "taken": 5,
+      "done": 5,
+      "total": 10
+    },
+    {
+      "name": "Local-language AI",
+      "repo": "ADT-community/locallity_ai",
+      "open": 8,
+      "taken": 0,
+      "done": 0,
+      "total": 8
+    },
+    {
+      "name": "Minibus app",
+      "repo": "ADT-community/trans_sport",
+      "open": 12,
+      "taken": 0,
+      "done": 0,
+      "total": 12
+    }
+  ],
+  "repos": [
+    {
+      "repo": "ADT-community/trans_sport",
+      "url": "https://github.com/ADT-community/trans_sport",
+      "last_push": "2026-11-18T19:18:09Z",
+      "open_issues": 13,
+      "open_pull_requests": 7,
+      "contributors_with_open_prs": 3
+    },
+    {
+      "repo": "ADT-community/adt-community.github.io",
+      "url": "https://github.com/ADT-community/adt-community.github.io",
+      "last_push": "2026-11-20T02:15:20Z",
+      "open_issues": 7,
+      "open_pull_requests": 7,
+      "contributors_with_open_prs": 3
+    },
+    {
+      "repo": "ADT-community/trader",
+      "url": "https://github.com/ADT-community/trader",
+      "last_push": "2026-11-20T05:16:09Z",
+      "open_issues": 12,
+      "open_pull_requests": 2,
+      "contributors_with_open_prs": 1
+    },
+    {
+      "repo": "ADT-community/locallity_ai",
+      "url": "https://github.com/ADT-community/locallity_ai",
+      "last_push": "2026-11-18T19:18:11Z",
+      "open_issues": 9,
+      "open_pull_requests": 5,
+      "contributors_with_open_prs": 2
+    },
+    {
+      "repo": "ADT-community/ADT_agent",
+      "url": "https://github.com/ADT-community/ADT_agent",
+      "last_push": "2026-11-20T05:35:28Z",
+      "open_issues": 5,
+      "open_pull_requests": 6,
+      "contributors_with_open_prs": 3
+    },
+    {
+      "repo": "ADT-community/content_feed",
+      "url": "https://github.com/ADT-community/content_feed",
+      "last_push": "2026-11-18T19:18:14Z",
+      "open_issues": 9,
+      "open_pull_requests": 2,
+      "contributors_with_open_prs": 2
+    }
+  ]
+}

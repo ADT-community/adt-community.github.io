@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Network status · ADT Community</title>
+<meta name="description" content="Live status of the ADT network: tasks open, taken and done, and open pull requests in every repo.">
+<link rel="stylesheet" href="style.css">
+<style>
+  .stats { display: grid; gap: 10px; margin: 20px 0 8px; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); }
+  .stat { border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; }
+  .stat b { display: block; font-size: 28px; line-height: 1.1; color: var(--text); }
+  .stat span { font-size: 13px; color: var(--muted); }
+  .tablewrap { overflow-x: auto; margin-top: 12px; }
+  table { width: 100%; border-collapse: collapse; font-size: 15px; }
+  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+  th { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); font-weight: 600; }
+  td { color: var(--muted); }
+  td:first-child { color: var(--text); white-space: normal; }
+  td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+  .warn { color: var(--text); }
+</style>
+</head>
+<body>
+<nav><div class="wrap">
+  <a class="logo" href="index.html">ADT Community</a>
+  <ul><li><a href="work.html">Work</a></li><li><a href="index.html#projects">Projects</a></li><li><a href="propose.html">Propose</a></li></ul>
+</div></nav>
+
+<header><div class="wrap">
+  <p class="kicker">Network status</p>
+  <h1 style="font-size:clamp(28px,6vw,42px)">What the ADT network is doing today</h1>
+  <p class="lead" id="updated">Loading status…</p>
+</div></header>
+
+<section><div class="wrap" id="status"></div></section>
+
+<footer><div class="wrap">
+  <span>Updated daily by the <a href="https://github.com/ADT-community/ADT_agent">ADT agent</a>. <a href="work.html">See open tasks</a></span>
+</div></footer>
+
+<script src="adt.js"></script>
+<script>
+(async () => {
+  const box = document.getElementById("status"), updated = document.getElementById("updated");
+  const n = v => (typeof v === "number" ? v.toLocaleString("en") : "–");
+  try {
+    const res = await fetch("status.json", { cache: "no-cache" });
+    if (!res.ok) throw new Error("status.json " + res.status);
+    const s = await res.json(), t = s.totals || {};
+    const when = new Date(s.generated_at);
+    updated.textContent = isNaN(when) ? "Updated daily." :
+      `Updated ${when.toLocaleString("en-GB", { dateStyle: "long", timeStyle: "short", timeZone: "UTC" })} UTC.`;
+    const stat = (v, label) => `<div class="stat"><b>${n(v)}</b><span>${label}</span></div>`;
+    const projects = (s.projects || []).map(p => `<tr><td>${adtEsc(p.name)}</td>
+      <td class="n">${n(p.open)}</td><td class="n">${n(p.taken)}</td><td class="n">${n(p.done)}</td></tr>`).join("");
+    const repos = (s.repos || []).map(r => {
+      const name = adtEsc(String(r.repo || "").split("/").pop());
+      const link = `<a href="https://github.com/${adtEsc(r.repo)}">${name}</a>`;
+      if (r.error) return `<tr><td>${link}</td><td class="n warn" colspan="3">Couldn't read today</td></tr>`;
+      return `<tr><td>${link}</td><td class="n">${n(r.open_issues)}</td><td class="n">${n(r.open_pull_requests)}</td>
+        <td class="n">${adtEsc(String(r.last_push || "").slice(0, 10))}</td></tr>`;
+    }).join("");
+    box.innerHTML = `
+      <div class="stats">
+        ${stat(t.open, "tasks open")}${stat(t.taken, "tasks taken")}${stat(t.done, "tasks done")}
+        ${stat(t.open_pull_requests, "open pull requests")}
+      </div>
+      <h2 style="margin-top:32px">Projects</h2>
+      <div class="tablewrap"><table>
+        <thead><tr><th>Project</th><th class="n">Open</th><th class="n">Taken</th><th class="n">Done</th></tr></thead>
+        <tbody>${projects}</tbody></table></div>
+      <h2 style="margin-top:32px">Repos</h2>
+      <div class="tablewrap"><table>
+        <thead><tr><th>Repo</th><th class="n">Open issues</th><th class="n">Open PRs</th><th class="n">Last push</th></tr></thead>
+        <tbody>${repos}</tbody></table></div>
+      <p class="note">Want to help? <a href="work.html">Pick a task on ADT Work</a>.</p>`;
+  } catch (e) {
+    updated.textContent = "Couldn't load the network status right now. Please try again later.";
+  }
+})();
+</script>
+</body>
+</html>
